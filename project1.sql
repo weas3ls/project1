@@ -27,7 +27,7 @@ create table ers_users (
 	user_first_name varchar(100) not null,
 	user_last_name varchar(100) not null,
 	user_email varchar(150) not null,
-	user_role_id integer references ers_user_roles(id)
+	user_role_id integer references ers_user_roles(ers_user_role_id)
 );
 
 create table ers_reimbursement (
