@@ -42,3 +42,18 @@ create table ers_reimbursement (
 	reimb_status_id integer references ers_reimbursement_status(reimb_status_id),
 	reimb_type_id integer references ers_reimbursement_type(reimb_type_id)
 );
+
+INSERT INTO
+	ers_reimbursement_type
+VALUES
+	(1, 'LODGING'),
+	(2, 'TRAVEL'),
+	(3, 'FOOD'),
+	(4, 'OTHER');
+
+insert into
+	ers_reimbursement_status
+values
+	(1, 'PENDING'),
+	(2, 'APPROVED'),
+	(3, 'DENIED');
