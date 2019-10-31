@@ -16,7 +16,7 @@ public class UserDao {
 	 * Effects: Returns a list of type User by converting all entries 
 	 * 
 	 */
-	public static List<User> getAllUsers() {
+	public List<User> getAllUsers() {
 		try (Connection conn = ConnectionUtil.getConnection()) {
 			List<User> users = new ArrayList<>();
 			String sql = "SELECT * FROM ers_users";
@@ -44,7 +44,7 @@ public class UserDao {
 	 * EFFECTS: Extracts from result set state in ers_users table and returns a User object with same state
 	 * 
 	 */
-	private static User extractUser(ResultSet rs) throws SQLException {
+	private User extractUser(ResultSet rs) throws SQLException {
 		Integer id = rs.getInt("ers_users_id");
 		String username = rs.getString("ers_username");
 		String password = rs.getString("ers_password");
