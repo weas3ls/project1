@@ -15,8 +15,8 @@ public class Reimbursement {
 	private String type;
 	
 	// Constructor
-	public Reimbursement(int id, BigDecimal amount, int requestee_id, String requestee_name, int resolvee_id,
-			String resolvee_name, int status_id, String status, int type_id, String type) {
+	public Reimbursement(int id, BigDecimal amount, int requestee_id, int resolvee_id,
+			int status_id, int type_id) {
 		super();
 		this.id = id;
 		this.amount = amount;
