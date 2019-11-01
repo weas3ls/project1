@@ -17,8 +17,6 @@ public class UserDao {
 	
 	// Creates a connection to the database.
 	public void setConnection(Connection conn) {
-		
-		
 		try {
 			if (this.conn != null && !this.conn.isClosed()) {
 				System.out.println("Closing connection");
@@ -106,24 +104,26 @@ public class UserDao {
 	
 	/*
 	 * 
-	 * Required: String, String
+	 * Required: Valid user object
 	 * Modifies: None.
 	 * Effects: Finds user in database by username and password. If results are found, then returns a new User object. Otherwise, returns null.
 	 * 
 	 */
 	public User getUserByCredentials(String username, String password) {
 		try (Connection conn = ConnectionUtil.getConnection()) {
-			String sql = "SELECT * FROM ers_users WHERE ers_username = ? AND ers_password = ?;";
+			String sql = "SELECT * FROM ers_users WHERE ers_username = ?;";
 			PreparedStatement statement = conn.prepareStatement(sql);
 			statement.setString(1, username);
-			statement.setString(2, password);
 			ResultSet rs = statement.executeQuery();
 			
-			if (rs.next()) {
+			Optional<String> salt = PasswordHashing.generateSalt(password.length());
+			String saltPassword = salt.get();
+
+			
+			if (rs.next() && PasswordHashing.verifyPassword(password.toCharArray(), rs.getString("ers_password"), saltPassword)) {
 				User user = extractUser(rs);
 				return user;
 			} else {
-				System.out.println("Username or password incorrect. Login failed.");
 				return null;
 			}
 			
