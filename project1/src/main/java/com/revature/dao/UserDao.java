@@ -10,6 +10,29 @@ import com.revature.models.User;
 import com.revature.util.*;
 
 public class UserDao {
+	Connection conn;
+	
+	
+	// Creates a connection to the database.
+	public void setConnection(Connection conn) {
+		
+		
+		try {
+			if (this.conn != null && !this.conn.isClosed()) {
+				System.out.println("Closing connection");
+				this.conn.close();
+			}
+			this.conn = conn;
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+
+	// Establishes connection to database upon instantiation of UserDao object.
+	public UserDao() {
+		this.conn = ConnectionUtil.getConnection();
+	}
+	
 	/*
 	 * Required: None
 	 * Modifies: None
