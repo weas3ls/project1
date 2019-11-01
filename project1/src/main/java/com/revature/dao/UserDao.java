@@ -62,6 +62,37 @@ public class UserDao {
 	}
 	
 	/*
+	 * 
+	 * Required: String, String
+	 * Modifies: None.
+	 * Effects: Finds user in database by username and password. If results are found, then returns a new User object. Otherwise, returns null.
+	 * 
+	 */
+	public User getUserByCredentials(String username, String password) {
+		try (Connection conn = ConnectionUtil.getConnection()) {
+			String sql = "SELECT * FROM ers_users WHERE ers_username = ? AND ers_password = ?;";
+			PreparedStatement statement = conn.prepareStatement(sql);
+			statement.setString(1, username);
+			statement.setString(2, password);
+			ResultSet rs = statement.executeQuery();
+			
+			if (rs.next()) {
+				User user = extractUser(rs);
+				return user;
+			} else {
+				System.out.println("Username or password incorrect. Login failed.");
+				return null;
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+			System.out.println("SQLException found in UserDao.getUserCredentials");
+			return null;
+		}
+	}
+	
+	
+	/*
 	 * REQUIRED: valid ResultSet
 	 * MODIFIES: None
 	 * EFFECTS: Extracts from result set state in ers_users table and returns a User object with same state
