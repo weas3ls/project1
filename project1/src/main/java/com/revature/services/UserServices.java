@@ -13,7 +13,6 @@ public class UserServices {
 	 * MODIFIES: None
 	 * EFFECTS: Returns true if the user login credentials have passed constraints. Returns false otherwise.
 	 */
-	
 	public boolean userLogin(String username, String password) {
 		User user = userDao.getUserByCredentials(username, password);
 		if (user != null) {
