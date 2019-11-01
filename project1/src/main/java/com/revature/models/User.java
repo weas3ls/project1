@@ -12,7 +12,6 @@ public class User {
 	private int roleId;
 	
 	public User(int id, String userName, String password, String passwordSalt, String firstName, String lastName, String email, int roleId) {
-		super();
 		this.id = id;
 		this.userName = userName;
 		this.password = password;
