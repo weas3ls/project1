@@ -111,16 +111,13 @@ public class UserDao {
 	 */
 	public User getUserByCredentials(String username, String password) {
 		try (Connection conn = ConnectionUtil.getConnection()) {
-			
 			// Selects from ers_user table to receive all information from user with specified username
 			String sql = "SELECT * FROM ers_users WHERE ers_username = ?;";
 			PreparedStatement statement = conn.prepareStatement(sql);
 			statement.setString(1, username);
 			ResultSet rs = statement.executeQuery();
-			
 			/* Creates a salt by using the password given in function parameter and passes it in the verifyPassword method in PasswordHashing
 			to verify that the hashed password matches the password field in the query. */
-			
 			Optional<String> salt = PasswordHashing.generateSalt(password.length());
 			String saltPassword = salt.get();
 

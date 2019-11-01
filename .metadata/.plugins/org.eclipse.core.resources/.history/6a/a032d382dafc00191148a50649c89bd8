@@ -111,24 +111,17 @@ public class UserDao {
 	 */
 	public User getUserByCredentials(String username, String password) {
 		try (Connection conn = ConnectionUtil.getConnection()) {
-			
-			// Selects from ers_user table to receive all information from user with specified username
-			String sql = "SELECT * FROM ers_users WHERE ers_username = ?;";
+			String sql = "SELECT * FROM ers_users WHERE ers_username = ? AND ers_password = ?;";
 			PreparedStatement statement = conn.prepareStatement(sql);
 			statement.setString(1, username);
+			statement.setString(2, password);
 			ResultSet rs = statement.executeQuery();
 			
-			/* Creates a salt by using the password given in function parameter and passes it in the verifyPassword method in PasswordHashing
-			to verify that the hashed password matches the password field in the query. */
-			
-			Optional<String> salt = PasswordHashing.generateSalt(password.length());
-			String saltPassword = salt.get();
-
-			// If the hashed password is equal to the password in the query, then returns user object. Otherwise, returns null pointer reference.
-			if (rs.next() && PasswordHashing.verifyPassword(password.toCharArray(), rs.getString("ers_password"), saltPassword)) {
+			if (rs.next()) {
 				User user = extractUser(rs);
 				return user;
 			} else {
+				System.out.println("Username or password incorrect. Login failed.");
 				return null;
 			}
 			
