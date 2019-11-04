@@ -57,3 +57,11 @@ values
 	(1, 'PENDING'),
 	(2, 'APPROVED'),
 	(3, 'DENIED');
+
+insert into
+	ers_user_roles
+values
+	(1, 'MANAGER'),
+	(2, 'EMPLOYEE');
+	(3, 'DENIED');
+  
