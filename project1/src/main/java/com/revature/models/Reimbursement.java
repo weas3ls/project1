@@ -5,6 +5,7 @@ import java.math.BigDecimal;
 public class Reimbursement {
 	private int id;
 	private BigDecimal amount;
+	private String description;
 	private int requestee_id;
 	private String requestee_name;
 	private int resolvee_id;
@@ -29,8 +30,39 @@ public class Reimbursement {
 		this.type_id = type_id;
 		this.type = type;
 	}
+	
+	public Reimbursement(int id, BigDecimal amount, String description, int requestee_id, int resolvee_id,
+			int status_id, int type_id) {
+		super();
+		this.id = id;
+		this.amount = amount;
+		this.description = description;
+		this.requestee_id = requestee_id;
+		this.requestee_name = requestee_name;
+		this.resolvee_id = resolvee_id;
+		this.resolvee_name = resolvee_name;
+		this.status_id = status_id;
+		this.status = status;
+		this.type_id = type_id;
+		this.type = type;
+	}
+
 
 	
+	/**
+	 * @return the description
+	 */
+	public String getDescription() {
+		return description;
+	}
+
+	/**
+	 * @param description the description to set
+	 */
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
 	/* Getters / Setters */
 	/**
 	 * @return the id
