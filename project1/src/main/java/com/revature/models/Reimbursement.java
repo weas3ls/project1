@@ -244,9 +244,9 @@ public class Reimbursement {
 
 	@Override
 	public String toString() {
-		return "Reimbursement [id=" + id + ", amount=" + amount + ", requestee_id=" + requestee_id + ", requestee_name="
-				+ requestee_name + ", resolvee_id=" + resolvee_id + ", resolvee_name=" + resolvee_name + ", status_id="
-				+ status_id + ", status=" + status + ", type_id=" + type_id + ", type=" + type + "]";
+		return (this.id + "\t" + this.amount + "\t" + this.requestee_id + "\t"
+				+ this.requestee_name + "\t" + this.resolvee_id + "\t" + this.resolvee_name + "\t"
+				+ this.status + "\t"  + type);
 	}
 	
 	
