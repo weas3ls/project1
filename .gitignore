@@ -1,76 +1,46 @@
-##############################
-## Java
-##############################
-.mtj.tmp/
-*.class
-*.jar
-*.war
-*.ear
-*.nar
-hs_err_pid*
+# See http://help.github.com/ignore-files/ for more about ignoring files.
 
-##############################
-## Maven
-##############################
-target/
-pom.xml.tag
-pom.xml.releaseBackup
-pom.xml.versionsBackup
-pom.xml.next
-release.properties
-dependency-reduced-pom.xml
-buildNumber.properties
-.mvn/timing.properties
-.mvn/wrapper/maven-wrapper.jar
+# compiled output
+/dist
+/tmp
+/out-tsc
+# Only exists if Bazel was run
+/bazel-out
 
-##############################
-## Gradle
-##############################
-bin/
-build/
-.gradle
-.gradletasknamecache
-gradle-app.setting
-!gradle-wrapper.jar
+# dependencies
+/node_modules
 
-##############################
-## IntelliJ
-##############################
-out/
-.idea/
-.idea_modules/
-*.iml
-*.ipr
-*.iws
+# profiling files
+chrome-profiler-events*.json
+speed-measure-plugin*.json
 
-##############################
-## Eclipse
-##############################
-.settings/
-bin/
-tmp/
-.metadata
-.classpath
+# IDEs and editors
+/.idea
 .project
-*.tmp
-*.bak
-*.swp
-*~.nib
-local.properties
-.loadpath
+.classpath
+.c9/
+*.launch
+.settings/
+*.sublime-workspace
 
-##############################
-## NetBeans
-##############################
-nbproject/private/
-build/
-nbbuild/
-dist/
-nbdist/
-nbactions.xml
-nb-configuration.xml
+# IDE - VSCode
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+.history/*
 
-##############################
-## OS X
-##############################
+# misc
+/.sass-cache
+/connect.lock
+/coverage
+/libpeerconnection.log
+npm-debug.log
+yarn-error.log
+testem.log
+/typings
+
+# System Files
 .DS_Store
+Thumbs.db
