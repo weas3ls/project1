@@ -60,6 +60,35 @@ public class ReimbursementDao {
 		
 	}
 	
+	/*
+	 * REQUIRED: Valid, non-null reimbursement reference
+	 * MODIFIES: ers_reimbursements 
+	 * EFFECTS: Adds a reimbursement ticket to ers_reimbursements
+	 */
+	public void insertReimbursement(Reimbursement r) {
+		try (Connection conn = ConnectionUtil.getConnection()) {
+			String sql = "INSERT INTO ers_reimbursements (reimb_id, reimb_amount, reimb_submitted, reimb_description, reimb_author,	"
+					+ "reimb_resolver,	reimb_status_id, reimb_type_id) VALUES (?, ?, CURRENT_TIMESTAMP, ?, ?, ?, ?, ?, ?);";
+			PreparedStatement statement = conn.prepareStatement(sql);
+			statement.setInt(1, r.getId());
+			statement.setBigDecimal(2, r.getAmount());
+			statement.setString(3, r.getDescription());
+			statement.setInt(4, r.getRequestee_id());
+			statement.setInt(5, r.getResolvee_id());
+			statement.setInt(6, r.getStatus_id());
+			statement.setInt(7, r.getType_id());
+			
+			statement.executeUpdate();
+			
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+			System.out.println("SQLException found in insertReimbursement method in ReimbursementDao.");
+			return;
+		}
+		
+	}
+	
 	
 	
 	/*

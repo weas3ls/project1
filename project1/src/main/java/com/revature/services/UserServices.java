@@ -8,7 +8,6 @@ public class UserServices {
 	UserDao userDao = new UserDao();
 	
 	/*
-	 * 
 	 * REQUIRED: String, String
 	 * MODIFIES: None
 	 * EFFECTS: Returns true if the user login credentials have passed constraints. Returns false otherwise.
