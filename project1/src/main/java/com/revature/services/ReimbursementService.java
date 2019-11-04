@@ -32,18 +32,16 @@ public class ReimbursementService {
 		 2		Employee
 		 */
 		
-		int userRole = user.getRoleId();
-		ReimbursementDao reimbursementDao = new ReimbursementDao();
-		
+		int userRole = user.getRoleId();		
 		switch (userRole) {
 		case 1:
 			// Returns list of all employee past and pending ticket requests.
-			tickets = reimbursementDao.getAllReimbursements();
+			tickets = this.reimbursementDao.getAllReimbursements();
 			
 			return tickets;
 		case 2:
 			// Returns all reimbursement tickets that are both pending and past by employee ID
-			List<Reimbursement> allRemibursements = reimbursementDao.getAllReimbursements();
+			List<Reimbursement> allRemibursements = this.reimbursementDao.getAllReimbursements();
 						
 			Iterator<Reimbursement> listIt = allRemibursements.iterator();
 			
@@ -59,6 +57,31 @@ public class ReimbursementService {
 			System.out.println("Something has gone terribly wrong in the switch statement in the getPastTickets method");
 			return null;
 		}
+	}
+	
+	/*
+	 * REQUIRED: Valid Reimbursement array list
+	 * MODIFIES: Nothing
+	 * EFFECTS: Prints the container contents.
+	 * 
+	 * 
+	 * this.id + "\t" + this.amount + "\t" + this.requestee_id + "\t"
+				+ this.requestee_name + "\t" + this.resolvee_id + "\t" + this.resolvee_name + "\t"
+				+ this.status_id + "\t" + this.status + "\t" + this.type_id + "\t" + type
+	 */
+	public void printTickets(final List<Reimbursement> tickets) {
+		Iterator<Reimbursement> ticketsIt = tickets.iterator();
+		
+		System.out.println("==================================================");
+		System.out.println("=\t\tREIMBURSEMENT TICKETS");
+		System.out.println("==================================================");
+		System.out.println("ID\tRequesteeID\tRequestee Name\tResolveeID\tResolvee Name\tStatus\tType");
+		
+		int numEntries = 0;
+		while (ticketsIt.hasNext()) {
+			System.out.println(++numEntries + ticketsIt.toString());
+		}
+		
 	}
 	
 	
