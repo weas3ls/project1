@@ -1,0 +1,7 @@
+package com.revature.dao;
+
+import java.sql.Connection;
+
+public class UserDao {
+	
+}
