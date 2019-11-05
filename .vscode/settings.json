@@ -5,6 +5,9 @@
         "fortawesome",
         "reimb",
         "requestee",
-        "resolvee"
-    ]
+        "resolvee",
+        "revature",
+        "weas"
+    ],
+    "java.configuration.updateBuildConfiguration": "interactive"
 }

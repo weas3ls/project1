@@ -40,9 +40,9 @@ public class ReimbursementService {
         case 2:
             // Returns all reimbursement tickets that are both pending and past by employee
             // ID
-            List<Reimbursement> allRemibursements = this.reimbursementDao.getAllReimbursements();
+            List<Reimbursement> allReimbursements = this.reimbursementDao.getAllReimbursements();
 
-            Iterator<Reimbursement> listIt = allRemibursements.iterator();
+            Iterator<Reimbursement> listIt = allReimbursements.iterator();
 
             while (listIt.hasNext()) {
                 if (listIt.next().getRequestee_id() == user.getId()) {
