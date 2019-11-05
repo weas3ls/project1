@@ -9,7 +9,11 @@ import com.revature.models.*;
 import com.revature.util.ConnectionUtil;
 
 public class ReimbursementService {
-	ReimbursementDao reimbursementDao = new ReimbursementDao();
+	ReimbursementDao reimbursementDao;
+	
+	public ReimbursementService () {
+		this.reimbursementDao = new ReimbursementDao();
+	}
 	
 	/*
 	 * View Past / Current Tickets
@@ -82,6 +86,17 @@ public class ReimbursementService {
 			System.out.println(++numEntries + ticketsIt.toString());
 		}
 		
+	}
+	
+	/*
+	 * REQUIRED: valid non-null reimbursement reference
+	 * MODIFIES: ers_reimbursement
+	 * EFFECTS: Inserts a new reimbursement record into ers_reimbursement table as "pending" status
+	 * 
+	 */
+	
+	public void requestReimbursement(Reimbursement r) {
+		reimbursementDao.insertReimbursement(r);
 	}
 	
 	

@@ -16,20 +16,20 @@ public class Reimbursement {
 	private String type;
 	
 	// Constructor
-	public Reimbursement(int id, BigDecimal amount, int requestee_id, int resolvee_id,
-			int status_id, int type_id) {
-		super();
-		this.id = id;
-		this.amount = amount;
-		this.requestee_id = requestee_id;
-		this.requestee_name = requestee_name;
-		this.resolvee_id = resolvee_id;
-		this.resolvee_name = resolvee_name;
-		this.status_id = status_id;
-		this.status = status;
-		this.type_id = type_id;
-		this.type = type;
-	}
+//	public Reimbursement(int id, BigDecimal amount, int requestee_id, int resolvee_id,
+//			int status_id, int type_id) {
+//		super();
+//		this.id = id;
+//		this.amount = amount;
+//		this.requestee_id = requestee_id;
+//		this.requestee_name = requestee_name;
+//		this.resolvee_id = resolvee_id;
+//		this.resolvee_name = resolvee_name;
+//		this.status_id = status_id;
+//		this.status = status;
+//		this.type_id = type_id;
+//		this.type = type;
+//	}
 	
 	public Reimbursement(int id, BigDecimal amount, String description, int requestee_id, int resolvee_id,
 			int status_id, int type_id) {
