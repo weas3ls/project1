@@ -12,13 +12,13 @@ import com.revature.models.User;
 import com.revature.passwordhash.PasswordHashing;
 
 public class GenerateUsersService {
+    static UserDao userDao = new UserDao();
 
-    UserDao userDao = new UserDao();
 
     public static void main(String[] args) throws JsonParseException, JsonMappingException, IOException {
         ObjectMapper objectMapper = new ObjectMapper();
 
-        File file = new File("C:\\Users\\weas3ls\\Documents\\revature_training\\project1\\MOCK_DATA.json");
+        File file = new File("E:\\Revature\\Training\\Projects\\Project 01\\MOCK_DATA.json");
 
         User[] users;
 
@@ -31,7 +31,11 @@ public class GenerateUsersService {
             Optional<String> password = PasswordHashing.hashPassword(user.getPassword().toCharArray(),
                     passwordSalt.get());
             user.setPassword(password.get());
-            System.out.println(user);
+            if (user.getRoleId() != 1) {
+            	user.setRoleId(2);
+            }
+            //System.out.println(user);
+            userDao.registerUser(user);
         }
     }
 }
