@@ -1,0 +1,45 @@
+<div class="row">
+    <div class="col-12 col-md-5 ml-auto">
+        <div class="md-form">
+            <input type="text" [(ngModel)]="searchText" class="form-control" id="search" mdbInput autofocus>
+            <label for="search">Filter reports</label>
+        </div>
+    </div>
+</div>
+<table id="submittedExpenseRequests" mdbTable hover="true">
+    <caption class="h4">Submitted Requests
+        <mdb-icon fas icon="plus-circle" size="lg" class="green-text px-2" mdbTooltip="Create new reimbursement request" placement="top"></mdb-icon>
+    </caption>
+    <thead>
+        <tr>
+            <th [mdbTableSort]="elements" sortBy="request_id">Request ID
+                <mdb-icon fas icon="sort"></mdb-icon>
+            </th>
+            <th [mdbTableSort]="elements" sortBy="amount">Amount
+                <mdb-icon fas icon="sort"></mdb-icon>
+            </th>
+            <th [mdbTableSort]="elements" sortBy="date_submitted">Date Submitted
+                <mdb-icon fas icon="sort"></mdb-icon>
+            </th>
+            <th [mdbTableSort]="elements" sortBy="date_resolved">Date Resolved
+                <mdb-icon fas icon="sort"></mdb-icon>
+            </th>
+            <th [mdbTableSort]="elements" sortBy="status">Status
+                <mdb-icon fas icon="sort"></mdb-icon>
+            </th>
+            <th [mdbTableSort]="elements" sortBy="type">Type
+                <mdb-icon fas icon="sort"></mdb-icon>
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let el of elements; let i = index">
+            <th scope="row">{{ el.request_id }}</th>
+            <td>${{ el.amount }}</td>
+            <td>{{ el.date_submitted | date : 'longDate' }}</td>
+            <td>{{( el.date_resolved | date : 'longDate') || "Still open" }}</td>
+            <td>{{ el.status }}</td>
+            <td>{{ el.type }}</td>
+        </tr>
+    </tbody>
+</table>
