@@ -138,6 +138,39 @@ public class UserDao {
             return null;
         }
     }
+    
+    /*
+     * REQUIRED: Valid user reference
+     * MODIFIES: Nothing
+     * EFFECTS: Register users from generated data (JSON)
+     * JSON Path: E:\Revature\Training\Projects\Project 01\MOCK_DATA.json
+     */
+    
+    public void registerUser(final User user) {
+    	try (Connection conn = ConnectionUtil.getConnection()) {
+        	String sql = "INSERT INTO ers_users (ers_username, ers_password, password_salt, user_first_name, user_last_name, user_email, user_role_id)"
+        			+ "VALUES (?, ?, ?, ?, ?, ?, ?);";
+        	PreparedStatement statement = conn.prepareStatement(sql);
+        	
+        	statement.setString(1, user.getUsername());
+        	statement.setString(2, user.getPassword());
+        	statement.setString(3, user.getPasswordSalt());
+        	statement.setString(4, user.getFirstName());
+        	statement.setString(5, user.getLastName());
+        	statement.setString(6, user.getEmail());
+        	statement.setInt(7, user.getRoleId());
+        	
+        	statement.executeUpdate();
+        	
+        	System.out.println(user.getUsername() + " has been registered.");
+        	
+
+    	} catch (SQLException e) {
+    		e.printStackTrace();
+    		System.out.println("SQLException in registerUsers method in UserDao");
+    	}
+    }
+    
 
     /*
      * REQUIRED: valid ResultSet MODIFIES: None EFFECTS: Extracts from result set
