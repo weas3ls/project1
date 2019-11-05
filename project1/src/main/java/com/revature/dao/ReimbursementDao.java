@@ -108,8 +108,9 @@ public class ReimbursementDao {
 		Integer resolverId = rs.getInt("reimb_resolver");
 		Integer statusId = rs.getInt("reimb_status_id");
 		Integer typeId = rs.getInt("reimb_type_id");
+		String descript = rs.getString("reimb_description");
 		
-		Reimbursement reimbursement = new Reimbursement(id, amount, authorId, resolverId, statusId, typeId);
+		Reimbursement reimbursement = new Reimbursement(id, amount, descript, authorId, resolverId, statusId, typeId);
 		return reimbursement;
 	}
 }
