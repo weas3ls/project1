@@ -96,7 +96,7 @@ public class ReimbursementService {
 	 */
 	
 	public void requestReimbursement(Reimbursement r) {
-		reimbursementDao.insertReimbursement(r);
+		
 	}
 	
 	
