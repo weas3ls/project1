@@ -1,0 +1,27 @@
+<div class="jumbotron blue-grey lighten-5">
+    <h2 class="card-title text-center h2">New Expense Request</h2>
+    <p class="indigo-text my-4 font-weight-bold text-center">Please fill in all the fields!</p>
+    <form action="">
+        <div class="row d-flex">
+            <div class="col-12 col-md-3">
+                <div class="md-form">
+                    <input type="date" id="submitted-date" class="form-control" mdbInput>
+                    <label for="input">Choose your date</label>
+                </div>
+            </div>
+            <div class="col-12 col-md-3">
+                <label class="mb-0 ml-2" for="amount">Amount</label>
+                <div class="md-form input-group mb-3 mt-0">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text md-addon" id="material-addon1"><mdb-icon fas icon="dollar-sign"></mdb-icon></span>
+                    </div>
+                    <input type="number" id="amount" class="form-control" placeholder="Amount" aria-label="Amount" aria-describedby="material-addon1">
+                </div>
+            </div>
+        </div>
+    </form>
+    <hr class="my-4 pb-2">
+
+    <button mdbBtn gradient="blue" rounded="true" mdbWavesEffect>Buy now <mdb-icon far icon="gem" class="ml-1"></mdb-icon></button>
+    <button mdbBtn color="indigo" rounded="true" mdbWavesEffect>Download <mdb-icon fas icon="download" class="ml-1"></mdb-icon></button>
+</div>
