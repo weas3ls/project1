@@ -1,0 +1,11 @@
+{
+    "configurations": [
+        {
+            "type": "java",
+            "name": "CodeLens (Launch) - GenerateUsersService",
+            "request": "launch",
+            "mainClass": "com.revature.services.GenerateUsersService",
+            "projectName": "project1"
+        }
+    ]
+}
