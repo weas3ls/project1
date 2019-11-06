@@ -7,6 +7,7 @@ import java.sql.SQLException;
 import java.util.List;
 import java.util.Optional;
 import java.util.ArrayList;
+
 import com.revature.models.User;
 import com.revature.passwordhash.PasswordHashing;
 import com.revature.util.*;
@@ -95,7 +96,7 @@ public class UserDao {
             return null;
         }
     }
-    
+
     /*
      * REQUIRED: Valid user reference
      * MODIFIES: User
@@ -130,8 +131,6 @@ public class UserDao {
     		e.printStackTrace();
     		System.out.println("SQLException in registerUsers method in UserDao");
     	}
-    }
-    
 
     /*
      * REQUIRED: valid ResultSet MODIFIES: None EFFECTS: Extracts from result set
