@@ -58,43 +58,7 @@ public class UserDao {
 
     }
 
-    /*
-     * 
-     * REQUIRED: valid User reference Modifies: user Effects: Generates salt to user
-     * given password and sets the passwordSalt field in user to the generated
-     * password salt.
-     */
-    public void generateSalt(User user) {
-        Optional<String> salt = PasswordHashing.generateSalt(user.getPassword().length());
-        String saltPassword = salt.get();
-        user.setPasswordSalt(saltPassword);
 
-    }
-
-    /*
-     * 
-     * REQUIRED: Valid User reference with passwordSalt state MODIFIES: None
-     * EFFECTS: Hashes user password and sends it to the database
-     * 
-     */
-    public void insertHashPassword(final User user) {
-        try (Connection conn = ConnectionUtil.getConnection()) {
-            String passwordSalt = new String(user.getPasswordSalt());
-            Optional<String> hashedPassword = PasswordHashing.hashPassword(user.getPassword().toCharArray(),
-                    passwordSalt);
-            String sql = "INSERT INTO ers_users (ers_password) VALUES (?) WHERE id = ?;";
-            PreparedStatement statement = conn.prepareStatement(sql);
-            statement.setString(1, hashedPassword.get());
-            statement.setInt(2, user.getId());
-            statement.executeUpdate();
-
-        } catch (SQLException e) {
-            e.printStackTrace();
-            System.out.println("SQLException in UserDao.hashPassword");
-            return;
-        }
-
-    }
 
     /*
      * 
