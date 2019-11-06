@@ -21,10 +21,9 @@ public class User {
     // Also used the generate salt and hash to properly hash the password before storing it into state. Private helper functions found directly below
     // constructor definition.
     
-    public User(String username, String password, String passwordSalt, String firstName, String lastName,
+    public User(String username, String password, String firstName, String lastName,
             String email, int roleId) {
         this.username = username;
-        this.passwordSalt = passwordSalt;
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
