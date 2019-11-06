@@ -14,9 +14,9 @@ public class User {
     public User() {
     }
 
-    public User(int id, String username, String password, String passwordSalt, String firstName, String lastName,
+    // Modified constructor to remove id parameter. The reason is because id is automatically generated in the table as a user entry is added.
+    public User(String username, String password, String passwordSalt, String firstName, String lastName,
             String email, int roleId) {
-        this.id = id;
         this.username = username;
         this.password = password;
         this.passwordSalt = passwordSalt;
