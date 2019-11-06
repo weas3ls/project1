@@ -148,8 +148,9 @@ public class UserDao {
         String email = rs.getString("user_email");
         Integer roleId = rs.getInt("user_role_id");
 
-        User user = new User(username, password, passwordSalt, firstName, lastName, email, roleId);
+        User user = new User(username, password, firstName, lastName, email, roleId);
         user.setId(id);
+        user.setPasswordSalt(passwordSalt);
         return user;
     }
 }
