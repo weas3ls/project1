@@ -113,19 +113,12 @@ public class UserDao {
             statement.setString(1, username);
             ResultSet rs = statement.executeQuery();
 
-            /*
-             * Creates a salt by using the password given in function parameter and passes
-             * it in the verifyPassword method in PasswordHashing to verify that the hashed
-             * password matches the password field in the query.
-             */
-
-            Optional<String> salt = PasswordHashing.generateSalt(password.length());
-            String saltPassword = salt.get();
+           
 
             // If the hashed password is equal to the password in the query, then returns
             // user object. Otherwise, returns null pointer reference.
             if (rs.next() && PasswordHashing.verifyPassword(password.toCharArray(), rs.getString("ers_password"),
-                    saltPassword)) {
+                    rs.getString("password_salt"))) {
                 User user = extractUser(rs);
                 return user;
             } else {
