@@ -134,15 +134,15 @@ public class UserDao {
     
     /*
      * REQUIRED: Valid user reference
-     * MODIFIES: Nothing
+     * MODIFIES: User
      * EFFECTS: Register users from generated data (JSON)
      * JSON Path: E:\Revature\Training\Projects\Project 01\MOCK_DATA.json
      */
     
-    public void registerUser(final User user) {
+    public void registerUser(User user) {
     	try (Connection conn = ConnectionUtil.getConnection()) {
         	String sql = "INSERT INTO ers_users (ers_username, ers_password, password_salt, user_first_name, user_last_name, user_email, user_role_id)"
-        			+ "VALUES (?, ?, ?, ?, ?, ?, ?);";
+        			+ "VALUES (?, ?, ?, ?, ?, ?, ?) RETURNING ers_users_id;";
         	PreparedStatement statement = conn.prepareStatement(sql);
         	
         	statement.setString(1, user.getUsername());
@@ -153,7 +153,11 @@ public class UserDao {
         	statement.setString(6, user.getEmail());
         	statement.setInt(7, user.getRoleId());
         	
-        	statement.executeUpdate();
+        	ResultSet rs = statement.executeQuery();
+        	
+        	if (rs.next()) {
+        		user.setId(rs.getInt("ers_users_id"));
+        	}
         	
         	System.out.println(user.getUsername() + " has been registered.");
         	
@@ -180,7 +184,8 @@ public class UserDao {
         String email = rs.getString("user_email");
         Integer roleId = rs.getInt("user_role_id");
 
-        User user = new User(id, username, password, passwordSalt, firstName, lastName, email, roleId);
+        User user = new User(username, password, passwordSalt, firstName, lastName, email, roleId);
+        user.setId(id);
         return user;
     }
 }
