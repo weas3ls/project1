@@ -88,15 +88,15 @@ public class ReimbursementDao {
      */
     public Reimbursement getTicketById(int reinbursementId) {
     	try (Connection conn = ConnectionUtil.getConnection()) {
-    		String sql = "SELECT * FROM ers_reimbursement WHERE id=?;";
+    		String sql = "SELECT * FROM ers_reimbursement WHERE reimb_id=?;";
     		PreparedStatement statement = conn.prepareStatement(sql);
     		statement.setInt(1, reinbursementId);
     		
     		ResultSet rset = statement.executeQuery();
     		
     		if (rset.next()) {
-    			BigDecimal amount = rs.ge
-    			Reimbursement reimbursement = new Reimbursement(amount, description, requestee_id, resolver_id, status_id, type_id)
+                Reimbursement reimbursement = extractReimbursement(rset);
+                return reimbursement;
     		} else {
     			System.out.println("ticket not found");
     			return null;
