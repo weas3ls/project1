@@ -25,10 +25,6 @@ public class GenerateUsersService {
 
         users = objectMapper.readValue(file, User[].class);
         for (User user : users) {
-<<<<<<< HEAD
-            //System.out.println(user);
-=======
->>>>>>> e5f8dacf38ec959e8f91edb7f1156a126aef1f9b
             Optional<String> passwordSalt = PasswordHashing.generateSalt(512);
             user.setPasswordSalt(passwordSalt.get());
             Optional<String> password = PasswordHashing.hashPassword(user.getPassword().toCharArray(),
@@ -37,12 +33,7 @@ public class GenerateUsersService {
             if (user.getRoleId() != 1) {
                 user.setRoleId(2);
             }
-<<<<<<< HEAD
-            //System.out.println(user);
-            //userDao.registerUser(user);
-=======
             userDao.registerUser(user);
->>>>>>> e5f8dacf38ec959e8f91edb7f1156a126aef1f9b
         }
         
         // Create a new user using the UserDao's registerUser method

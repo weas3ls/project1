@@ -6,6 +6,7 @@ import java.math.BigDecimal;
 import java.util.List;
 import java.util.Optional;
 
+import java.util.concurrent.*;
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -33,9 +34,12 @@ public class GenerateReimbursementsService {
         System.out.println("Java Reimbursement object created from JSON String :");
 
         for (Reimbursement reimbursement : reimbursements) {
-        	reimbursementDao.addTicket(reimbursement);
+        	int randomNumber = ThreadLocalRandom.current().nextInt(1, 26);
+        	reimbursement.setRequestee_id(randomNumber);
+        	System.out.println(reimbursement);
+        	//reimbursementDao.addTicket(reimbursement);
         }
-        
+        /*
         // Adds additional reimbursement tickets from managers
         Reimbursement managerReimbursement1 = new Reimbursement(BigDecimal.valueOf(455.76), "Manager Reimbursement for Joey", 24, 1, 2);
         Reimbursement managerReimbursement2 = new Reimbursement(BigDecimal.valueOf(343.82), "Manager Reimbursement for Ahmad", 25, 1, 2);
@@ -48,7 +52,7 @@ public class GenerateReimbursementsService {
         reimbursementDao.addTicket(managerReimbursement3);
         reimbursementDao.addTicket(employeeReimbursement);
         
-        
+        */
         
         
         
@@ -57,9 +61,9 @@ public class GenerateReimbursementsService {
         List<Reimbursement> employeeTicketView = reimbursementService.getTickets(new User("ccayd", "PYMYxy0O12s", "Carolus", "Cay", "ccayd@mac.com", 2));
         
         System.out.println("Manager ticket view");
-        System.out.println(manager1TicketView);
+        reimbursementService.printTickets(manager1TicketView);
         System.out.println("Employee Ticket View");
-        System.out.println(employeeTicketView);
+        reimbursementService.printTickets(employeeTicketView);
         
 
 	}

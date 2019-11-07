@@ -68,7 +68,7 @@ public class ReimbursementDao {
      */
     public void addTicket(Reimbursement reimbursement) {
     	try (Connection conn = ConnectionUtil.getConnection()) {
-    		String sql = "INSERT INTO ers_reimbursements (reimb_amount, reimb_description, reimb_author, reimb_resolver, reimb_status_id, reimb_type_id)"
+    		String sql = "INSERT INTO ers_reimbursement (reimb_amount, reimb_description, reimb_author, reimb_resolver, reimb_status_id, reimb_type_id)"
     				+ "VALUES (?, ?, ?, ?, ?, ?) RETURNING reimb_id;";
     		PreparedStatement statement = conn.prepareStatement(sql);
     		statement.setBigDecimal(1, reimbursement.getAmount());

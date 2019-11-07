@@ -36,15 +36,15 @@ public class ReimbursementService {
             // Returns list of all employee past and pending ticket requests with exception of the employer's own request.
             List<Reimbursement> allManagerReimbursements = this.reimbursementDao.getAllReimbursements();
             
-            Iterator<Reimbursement> managerIt = allManagerReimbursements.iterator();
-            
-            while (managerIt.hasNext()) {
-            	if (managerIt.next().getRequestee_id() != user.getId()) {
-            		tickets.add(managerIt.next());
-            	}
-            }
+//            Iterator<Reimbursement> managerIt = allManagerReimbursements.iterator();
+//            
+//            while (managerIt.hasNext()) {
+//            	if (managerIt.next().getRequestee_id() != user.getId()) {
+//            		tickets.add(managerIt.next());
+//            	}
+//            }
 
-            return tickets;
+            return allManagerReimbursements;
         case 2:
             // Returns all reimbursement tickets that are both pending and past by employee
             // ID

@@ -30,6 +30,8 @@ public class Reimbursement {
     // this.type_id = type_id;
     // this.type = type;
     // }
+    
+    public Reimbursement() {}
 
     public Reimbursement(BigDecimal amount, String description, int requestee_id,
             int status_id, int type_id) {

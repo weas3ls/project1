@@ -131,6 +131,7 @@ public class UserDao {
     		e.printStackTrace();
     		System.out.println("SQLException in registerUsers method in UserDao");
     	}
+    }
 
     /*
      * REQUIRED: valid ResultSet MODIFIES: None EFFECTS: Extracts from result set
