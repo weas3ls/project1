@@ -1,6 +1,5 @@
 package com.revature.services;
 
-import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
@@ -19,52 +18,40 @@ public class ReimbursementService {
      * this function.
      * 
      */
-    public List<Reimbursement> getTickets(User user) {
-        List<Reimbursement> tickets = new ArrayList<>();
+    public List<Reimbursement> getUserTickets(User user) {
+        List<Reimbursement> userTickets = reimbursementDao.getUserReimbursements(user.getId());
+        return userTickets;
 
-        /*
-         * First we want to know whether it is an employee or the manager who is viewing
-         * the list of tickets. If the user role ID is employee, then we want the
-         * employee to only see his or her past and pending tickets. However, if it's
-         * the manager viewing tickets, then he or she has access to all employee
-         * tickets. ID Role 1 Manager 2 Employee
-         */
+        // int userRole = user.getRoleId();
+        // switch (userRole) {
+        // case 1:
+        // // Returns list of all employee past and pending ticket requests with
+        // exception
+        // // of the employer's own request.
+        // List<Reimbursement> allManagerReimbursements =
+        // this.reimbursementDao.getAllReimbursements();
 
-        int userRole = user.getRoleId();
-        switch (userRole) {
-        case 1:
-            // Returns list of all employee past and pending ticket requests with exception of the employer's own request.
-            List<Reimbursement> allManagerReimbursements = this.reimbursementDao.getAllReimbursements();
-            
-            Iterator<Reimbursement> managerIt = allManagerReimbursements.iterator();
-            
-            while (managerIt.hasNext()) {
-            	if (managerIt.next().getRequestee_id() != user.getId()) {
-            		tickets.add(managerIt.next());
-            	}
-            }
+        // return allManagerReimbursements;
+        // case 2:
+        // // Returns all reimbursement tickets that are both pending and past by
+        // employee
+        // // ID
+        // List<Reimbursement> allEmployeeReimbursements =
+        // this.reimbursementDao.getAllReimbursements();
 
-            return tickets;
-        case 2:
-            // Returns all reimbursement tickets that are both pending and past by employee
-            // ID
-            List<Reimbursement> allEmployeeReimbursements = this.reimbursementDao.getAllReimbursements();
+        // Iterator<Reimbursement> employeeIt = allEmployeeReimbursements.iterator();
 
-            Iterator<Reimbursement> employeeIt = allEmployeeReimbursements.iterator();
+        // while (employeeIt.hasNext()) {
+        // if (employeeIt.next().getRequestee_id() == user.getId()) {
+        // tickets.add(employeeIt.next());
+        // }
+        // }
 
-            while (employeeIt.hasNext()) {
-                if (employeeIt.next().getRequestee_id() == user.getId()) {
-                    tickets.add(employeeIt.next());
-                }
-            }
-
-            return tickets;
-
-        default:
-            System.out
-                    .println("Something has gone terribly wrong in the switch statement in the getPastTickets method");
-            return null;
-        }
+        // default:
+        // System.out
+        // .println("Something has gone terribly wrong in the switch statement in the
+        // getPastTickets method");
+        // return null;
     }
 
     /*
