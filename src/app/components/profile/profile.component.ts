@@ -17,7 +17,7 @@ export class ProfileComponent implements OnInit {
     ngOnInit() {
         this.loggedInUser = this.loginService.$userData.subscribe(user => this.userName = `#${user.name}`);
         this.userName = this.loggedInUser;
-        this.currentlyLoggedIn = this.loginService.$userData.subscribe(user =>this.currentlyLoggedIn = `#${user.currentlyLoggedIn}`);
+        // this.currentlyLoggedIn = this.loginService.$userData.subscribe(user =>this.currentlyLoggedIn = `#${user.currentlyLoggedIn}`);
         console.log(this.currentlyLoggedIn);
     }
 }

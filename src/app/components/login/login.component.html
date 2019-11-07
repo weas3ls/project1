@@ -1,7 +1,7 @@
 <links>
-    <form [formGroup]="validatingForm" class="form-inline waves-light waves-light ml-auto mr-5" *ngIf="!currentlyLoggedIn; else loggedIn">
+    <form [formGroup]="validatingForm" class="form-inline waves-light waves-light ml-lg-auto mr-xl-5" *ngIf="!currentlyLoggedIn; else loggedIn">
         <div class=form-row>
-            <div class="col">
+            <div class="col-12 col-md-6">
                 <div class="md-form mt-4 mb-3 mx-3">
                     <input type="email" id="email" class="form-control validate white-text mx-0" mdbValidate mdbInput [formControl]="email">
                     <label data-error="wrong" data-success="right" for="email">Your email</label>
@@ -13,7 +13,7 @@
                     </mdb-success>
                 </div>
             </div>
-            <div class="col">
+            <div class="col-12 col-md-6">
                 <div class="md-form mt-4 mb-3 mx-3">
                     <input type="password" id="password" class="form-control validate white-text mx-0" mdbValidate mdbInput [formControl]="password">
                     <label data-error="wrong" data-success="right" for="password">Your password</label>
@@ -26,7 +26,7 @@
                 </div>
             </div>
         </div>
-        <div class="md-form mt-4 mb-3 ml-3">
+        <div class="md-form mt-4 mb-3 ml-xl-3">
             <button mdbBtn color="success" outline="true" size="sm" class="waves-light m-0" (click)="submit()" mdbWavesEffect>Login</button>
         </div>
     </form>

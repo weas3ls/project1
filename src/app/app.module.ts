@@ -12,6 +12,7 @@ import { LoginComponent } from './components/login/login.component';
 import { ProfileComponent } from './components/profile/profile.component';
 import { RequestsComponent } from './components/requests/requests.component';
 import { NewRequestComponent } from './components/new-request/new-request.component';
+import { RequestDetailComponent } from './components/request-detail/request-detail.component';
 
 @NgModule({
     declarations: [
@@ -20,7 +21,8 @@ import { NewRequestComponent } from './components/new-request/new-request.compon
         LoginComponent,
         ProfileComponent,
         RequestsComponent,
-        NewRequestComponent
+        NewRequestComponent,
+        RequestDetailComponent
     ],
     imports: [
         BrowserModule,
