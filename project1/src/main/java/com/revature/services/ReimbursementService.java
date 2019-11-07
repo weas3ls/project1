@@ -19,7 +19,7 @@ public class ReimbursementService {
      * this function.
      * 
      */
-    public List<Reimbursement> getPastTickets(User user) {
+    public List<Reimbursement> getTickets(User user) {
         List<Reimbursement> tickets = new ArrayList<>();
 
         /*
@@ -33,20 +33,28 @@ public class ReimbursementService {
         int userRole = user.getRoleId();
         switch (userRole) {
         case 1:
-            // Returns list of all employee past and pending ticket requests.
-            tickets = this.reimbursementDao.getAllReimbursements();
+            // Returns list of all employee past and pending ticket requests with exception of the employer's own request.
+            List<Reimbursement> allManagerReimbursements = this.reimbursementDao.getAllReimbursements();
+            
+            Iterator<Reimbursement> managerIt = allManagerReimbursements.iterator();
+            
+            while (managerIt.hasNext()) {
+            	if (managerIt.next().getRequestee_id() != user.getId()) {
+            		tickets.add(managerIt.next());
+            	}
+            }
 
             return tickets;
         case 2:
             // Returns all reimbursement tickets that are both pending and past by employee
             // ID
-            List<Reimbursement> allReimbursements = this.reimbursementDao.getAllReimbursements();
+            List<Reimbursement> allEmployeeReimbursements = this.reimbursementDao.getAllReimbursements();
 
-            Iterator<Reimbursement> listIt = allReimbursements.iterator();
+            Iterator<Reimbursement> employeeIt = allEmployeeReimbursements.iterator();
 
-            while (listIt.hasNext()) {
-                if (listIt.next().getRequestee_id() == user.getId()) {
-                    tickets.add(listIt.next());
+            while (employeeIt.hasNext()) {
+                if (employeeIt.next().getRequestee_id() == user.getId()) {
+                    tickets.add(employeeIt.next());
                 }
             }
 
