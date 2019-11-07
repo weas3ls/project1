@@ -14,28 +14,35 @@ import com.revature.passwordhash.PasswordHashing;
 public class GenerateUsersService {
     static UserDao userDao = new UserDao();
 
-
     public static void main(String[] args) throws JsonParseException, JsonMappingException, IOException {
         ObjectMapper objectMapper = new ObjectMapper();
 
-        File file = new File("E:\\Revature\\Training\\Projects\\Project 01\\MOCK_DATA.json");
+        // File file = new File("E:\\Revature\\Training\\Projects\\Project
+        // 01\\MOCK_DATA.json");
+        File file = new File("C:\\Users\\weas3ls\\Documents\\revature_training\\project1\\MOCK_DATA.json");
 
         User[] users;
 
         users = objectMapper.readValue(file, User[].class);
-        System.out.println("Java object created from JSON String :");
         for (User user : users) {
+<<<<<<< HEAD
             //System.out.println(user);
+=======
+>>>>>>> e5f8dacf38ec959e8f91edb7f1156a126aef1f9b
             Optional<String> passwordSalt = PasswordHashing.generateSalt(512);
             user.setPasswordSalt(passwordSalt.get());
             Optional<String> password = PasswordHashing.hashPassword(user.getPassword().toCharArray(),
                     passwordSalt.get());
             user.setPassword(password.get());
             if (user.getRoleId() != 1) {
-            	user.setRoleId(2);
+                user.setRoleId(2);
             }
+<<<<<<< HEAD
             //System.out.println(user);
             //userDao.registerUser(user);
+=======
+            userDao.registerUser(user);
+>>>>>>> e5f8dacf38ec959e8f91edb7f1156a126aef1f9b
         }
         
         // Create a new user using the UserDao's registerUser method
