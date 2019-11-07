@@ -59,43 +59,7 @@ public class UserDao {
 
     }
 
-    /*
-     * 
-     * REQUIRED: valid User reference Modifies: user Effects: Generates salt to user
-     * given password and sets the passwordSalt field in user to the generated
-     * password salt.
-     */
-    public void generateSalt(User user) {
-        Optional<String> salt = PasswordHashing.generateSalt(user.getPassword().length());
-        String saltPassword = salt.get();
-        user.setPasswordSalt(saltPassword);
 
-    }
-
-    /*
-     * 
-     * REQUIRED: Valid User reference with passwordSalt state MODIFIES: None
-     * EFFECTS: Hashes user password and sends it to the database
-     * 
-     */
-    public void insertHashPassword(final User user) {
-        try (Connection conn = ConnectionUtil.getConnection()) {
-            String passwordSalt = new String(user.getPasswordSalt());
-            Optional<String> hashedPassword = PasswordHashing.hashPassword(user.getPassword().toCharArray(),
-                    passwordSalt);
-            String sql = "INSERT INTO ers_users (ers_password) VALUES (?) WHERE id = ?;";
-            PreparedStatement statement = conn.prepareStatement(sql);
-            statement.setString(1, hashedPassword.get());
-            statement.setInt(2, user.getId());
-            statement.executeUpdate();
-
-        } catch (SQLException e) {
-            e.printStackTrace();
-            System.out.println("SQLException in UserDao.hashPassword");
-            return;
-        }
-
-    }
 
     /*
      * 
@@ -114,19 +78,12 @@ public class UserDao {
             statement.setString(1, username);
             ResultSet rs = statement.executeQuery();
 
-            /*
-             * Creates a salt by using the password given in function parameter and passes
-             * it in the verifyPassword method in PasswordHashing to verify that the hashed
-             * password matches the password field in the query.
-             */
-
-            Optional<String> salt = PasswordHashing.generateSalt(password.length());
-            String saltPassword = salt.get();
+           
 
             // If the hashed password is equal to the password in the query, then returns
             // user object. Otherwise, returns null pointer reference.
             if (rs.next() && PasswordHashing.verifyPassword(password.toCharArray(), rs.getString("ers_password"),
-                    saltPassword)) {
+                    rs.getString("password_salt"))) {
                 User user = extractUser(rs);
                 return user;
             } else {
@@ -141,34 +98,39 @@ public class UserDao {
     }
 
     /*
-     * REQUIRED: Valid user reference MODIFIES: Nothing EFFECTS: Register users from
-     * generated data (JSON) JSON Path: E:\Revature\Training\Projects\Project
-     * 01\MOCK_DATA.json
+     * REQUIRED: Valid user reference
+     * MODIFIES: User
+     * EFFECTS: Register users from generated data (JSON)
+     * JSON Path: E:\Revature\Training\Projects\Project 01\MOCK_DATA.json
      */
+    
+    public void registerUser(User user) {
+    	try (Connection conn = ConnectionUtil.getConnection()) {
+        	String sql = "INSERT INTO ers_users (ers_username, ers_password, password_salt, user_first_name, user_last_name, user_email, user_role_id)"
+        			+ "VALUES (?, ?, ?, ?, ?, ?, ?) RETURNING ers_users_id;";
+        	PreparedStatement statement = conn.prepareStatement(sql);
+        	
+        	statement.setString(1, user.getUsername());
+        	statement.setString(2, user.getPassword());
+        	statement.setString(3, user.getPasswordSalt());
+        	statement.setString(4, user.getFirstName());
+        	statement.setString(5, user.getLastName());
+        	statement.setString(6, user.getEmail());
+        	statement.setInt(7, user.getRoleId());
+        	
+        	ResultSet rs = statement.executeQuery();
+        	
+        	if (rs.next()) {
+        		user.setId(rs.getInt("ers_users_id"));
+        	}
+        	
+        	System.out.println(user.getUsername() + " has been registered.");
+        	
 
-    public void registerUser(final User user) {
-        try (Connection conn = ConnectionUtil.getConnection()) {
-            String sql = "INSERT INTO ers_users (ers_username, ers_password, password_salt, user_first_name, user_last_name, user_email, user_role_id)"
-                    + "VALUES (?, ?, ?, ?, ?, ?, ?);";
-            PreparedStatement statement = conn.prepareStatement(sql);
-
-            statement.setString(1, user.getUsername());
-            statement.setString(2, user.getPassword());
-            statement.setString(3, user.getPasswordSalt());
-            statement.setString(4, user.getFirstName());
-            statement.setString(5, user.getLastName());
-            statement.setString(6, user.getEmail());
-            statement.setInt(7, user.getRoleId());
-
-            statement.executeUpdate();
-
-            System.out.println(user.getUsername() + " has been registered.");
-
-        } catch (SQLException e) {
-            e.printStackTrace();
-            System.out.println("SQLException in registerUsers method in UserDao");
-        }
-    }
+    	} catch (SQLException e) {
+    		e.printStackTrace();
+    		System.out.println("SQLException in registerUsers method in UserDao");
+    	}
 
     /*
      * REQUIRED: valid ResultSet MODIFIES: None EFFECTS: Extracts from result set
@@ -185,7 +147,9 @@ public class UserDao {
         String email = rs.getString("user_email");
         Integer roleId = rs.getInt("user_role_id");
 
-        User user = new User(id, username, password, passwordSalt, firstName, lastName, email, roleId);
+        User user = new User(username, password, firstName, lastName, email, roleId);
+        user.setId(id);
+        user.setPasswordSalt(passwordSalt);
         return user;
     }
 }

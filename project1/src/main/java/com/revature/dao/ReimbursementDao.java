@@ -34,7 +34,9 @@ public class ReimbursementDao {
     }
 
     /*
-     * Required: None Modifies: None Effects: Returns a list of type User by
+     * Required: None
+     * Modifies: None 
+     * Effects: Returns a list of type User by
      * converting all entries
      * 
      */
@@ -57,6 +59,38 @@ public class ReimbursementDao {
             return null;
         }
 
+    }
+    
+    /* 
+     * REQUIRED: Valid Reimbursement reference
+     * MODIFIES: ers_reimbursements
+     * EFFECTS: Adds reimbursement ticket to the ers_reimbursement table in the database.
+     */
+    public void addTicket(Reimbursement reimbursement) {
+    	try (Connection conn = ConnectionUtil.getConnection()) {
+    		String sql = "INSERT INTO ers_reimbursements (reimb_amount, reimb_description, reimb_author, reimb_resolver, reimb_status_id, reimb_type_id)"
+    				+ "VALUES (?, ?, ?, ?, ?, ?) RETURNING reimb_id;";
+    		PreparedStatement statement = conn.prepareStatement(sql);
+    		statement.setBigDecimal(1, reimbursement.getAmount());
+    		statement.setString(2, reimbursement.getDescription());
+    		statement.setInt(3, reimbursement.getRequestee_id());
+    		statement.setInt(4, reimbursement.getResolvee_id());
+    		statement.setInt(5, reimbursement.getStatus_id());
+    		statement.setInt(6, reimbursement.getType_id());
+    		
+    		ResultSet rs = statement.executeQuery();
+    		
+    		if (rs.next()) {
+    			reimbursement.setId(rs.getInt("reimb_id"));
+    		}
+    		
+    		System.out.println("Reimbursement has been requested.");
+    		
+    	} catch (SQLException e) {
+    		e.printStackTrace();
+    		System.out.println("SQLException in ReimbursementDao.addTicket method.");
+    		return;
+    	}
     }
 
     /*

@@ -1,5 +1,8 @@
 package com.revature.models;
 
+import com.revature.passwordhash.PasswordHashing;
+import java.util.Optional;
+
 public class User {
 
     private int id;
@@ -14,17 +17,58 @@ public class User {
     public User() {
     }
 
-    public User(int id, String username, String password, String passwordSalt, String firstName, String lastName,
+    // Modified constructor to remove id parameter. The reason is because id is automatically generated in the table as a user entry is added.
+    // Also used the generate salt and hash to properly hash the password before storing it into state. Private helper functions found directly below
+    // constructor definition.
+    
+    public User(String username, String password, String firstName, String lastName,
             String email, int roleId) {
-        this.id = id;
         this.username = username;
-        this.password = password;
-        this.passwordSalt = passwordSalt;
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
         this.roleId = roleId;
+        
+        String salt = this.generateSalt();
+        String hashedPassword = this.generateHash(password, salt);
+        
+        this.passwordSalt = salt;
+        this.password = hashedPassword;
+        
+        
     }
+    
+    /*////////////////////////////////////////////
+     * PASSWORD SALT AND HASHING
+     *////////////////////////////////////////////
+    
+    /* 
+     * REQUIRED: N/A
+     * MODIFIES: this.passwordSalt
+     * EFFECTS: Generates and returns a salt value
+     */
+    private String generateSalt() {
+    	Optional<String> salt = PasswordHashing.generateSalt(512);
+    	
+    	return salt.get();
+    }
+    
+    /*
+     * REQUIRED: 
+     * MODIFIES:
+     * EFFECTS: Generates and returns a hashed password given a salt and naked user password
+     */
+    private String generateHash(String password, String salt) {
+    	Optional<String> hashedPassword = PasswordHashing.hashPassword(password.toCharArray(), salt);
+    	
+    	return hashedPassword.get();
+    }
+    
+    
+    /*////////////////////////////////////////////
+     * END OF PASSWORD SALT AND HASHING
+     *////////////////////////////////////////////
+
 
     // Getters & Setters, To_String, Equals, Hash, etc.
 
