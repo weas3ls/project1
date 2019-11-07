@@ -78,4 +78,22 @@ public class ReimbursementService {
         }
 
     }
+
+    /**
+     * REQUIRED: Valid remibursement ID integer
+     * MODIFIES: Nothing
+     * EFFECTS: Returns a reimbursement object containing information from the SQL database or a null pointer reference
+     * depending on the validity of the given integer
+     */
+    public Reimbursement getTicketById(int ticketId) {
+        Reimbursement ticket = reimbursementDao.getTicketById(ticketId);
+
+        if (ticket != null) {
+            System.out.println("Ticket received.");
+            return ticket;
+        } else {
+            System.out.println("Ticket not found.");
+            return null;
+        }
+    }
 }
