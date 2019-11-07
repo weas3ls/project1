@@ -4,13 +4,12 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.List;
-import java.util.Optional;
 import java.util.ArrayList;
+import java.util.List;
 
 import com.revature.models.User;
 import com.revature.passwordhash.PasswordHashing;
-import com.revature.util.*;
+import com.revature.util.ConnectionUtil;
 
 public class UserDao {
     Connection conn;
@@ -59,8 +58,6 @@ public class UserDao {
 
     }
 
-
-
     /*
      * 
      * Required: String, String Modifies: None. Effects: Finds user in database by
@@ -77,8 +74,6 @@ public class UserDao {
             PreparedStatement statement = conn.prepareStatement(sql);
             statement.setString(1, username);
             ResultSet rs = statement.executeQuery();
-
-           
 
             // If the hashed password is equal to the password in the query, then returns
             // user object. Otherwise, returns null pointer reference.
@@ -98,39 +93,38 @@ public class UserDao {
     }
 
     /*
-     * REQUIRED: Valid user reference
-     * MODIFIES: User
-     * EFFECTS: Register users from generated data (JSON)
-     * JSON Path: E:\Revature\Training\Projects\Project 01\MOCK_DATA.json
+     * REQUIRED: Valid user reference MODIFIES: User EFFECTS: Register users from
+     * generated data (JSON) JSON Path: E:\Revature\Training\Projects\Project
+     * 01\MOCK_DATA.json
      */
-    
-    public void registerUser(User user) {
-    	try (Connection conn = ConnectionUtil.getConnection()) {
-        	String sql = "INSERT INTO ers_users (ers_username, ers_password, password_salt, user_first_name, user_last_name, user_email, user_role_id)"
-        			+ "VALUES (?, ?, ?, ?, ?, ?, ?) RETURNING ers_users_id;";
-        	PreparedStatement statement = conn.prepareStatement(sql);
-        	
-        	statement.setString(1, user.getUsername());
-        	statement.setString(2, user.getPassword());
-        	statement.setString(3, user.getPasswordSalt());
-        	statement.setString(4, user.getFirstName());
-        	statement.setString(5, user.getLastName());
-        	statement.setString(6, user.getEmail());
-        	statement.setInt(7, user.getRoleId());
-        	
-        	ResultSet rs = statement.executeQuery();
-        	
-        	if (rs.next()) {
-        		user.setId(rs.getInt("ers_users_id"));
-        	}
-        	
-        	System.out.println(user.getUsername() + " has been registered.");
-        	
 
-    	} catch (SQLException e) {
-    		e.printStackTrace();
-    		System.out.println("SQLException in registerUsers method in UserDao");
-    	}
+    public void registerUser(User user) {
+        try (Connection conn = ConnectionUtil.getConnection()) {
+            String sql = "INSERT INTO ers_users (ers_username, ers_password, password_salt, user_first_name, user_last_name, user_email, user_role_id)"
+                    + "VALUES (?, ?, ?, ?, ?, ?, ?) RETURNING ers_users_id;";
+            PreparedStatement statement = conn.prepareStatement(sql);
+
+            statement.setString(1, user.getUsername());
+            statement.setString(2, user.getPassword());
+            statement.setString(3, user.getPasswordSalt());
+            statement.setString(4, user.getFirstName());
+            statement.setString(5, user.getLastName());
+            statement.setString(6, user.getEmail());
+            statement.setInt(7, user.getRoleId());
+
+            ResultSet rs = statement.executeQuery();
+
+            if (rs.next()) {
+                user.setId(rs.getInt("ers_users_id"));
+            }
+
+            System.out.println(user.getUsername() + " has been registered.");
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+            System.out.println("SQLException in registerUsers method in UserDao");
+        }
+    }
 
     /*
      * REQUIRED: valid ResultSet MODIFIES: None EFFECTS: Extracts from result set

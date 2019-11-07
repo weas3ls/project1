@@ -25,10 +25,6 @@ public class GenerateUsersService {
 
         users = objectMapper.readValue(file, User[].class);
         for (User user : users) {
-<<<<<<< HEAD
-            //System.out.println(user);
-=======
->>>>>>> e5f8dacf38ec959e8f91edb7f1156a126aef1f9b
             Optional<String> passwordSalt = PasswordHashing.generateSalt(512);
             user.setPasswordSalt(passwordSalt.get());
             Optional<String> password = PasswordHashing.hashPassword(user.getPassword().toCharArray(),
@@ -37,39 +33,35 @@ public class GenerateUsersService {
             if (user.getRoleId() != 1) {
                 user.setRoleId(2);
             }
-<<<<<<< HEAD
-            //System.out.println(user);
-            //userDao.registerUser(user);
-=======
             userDao.registerUser(user);
->>>>>>> e5f8dacf38ec959e8f91edb7f1156a126aef1f9b
         }
-        
+
         // Create a new user using the UserDao's registerUser method
         User newUser = new User("manager3", "password111", "Yue", "Tan", "ytan@princeton.edu", 1);
         userDao.registerUser(newUser);
-        
-        		
+
         testLogin("manager2", "password124");
         System.out.println("Logging into manager3..");
         testLogin("manager3", "password111");
     }
-    
-    // REQUIRED: valid user reference with username and password matching MOCK_DATA.json
+
+    // REQUIRED: valid user reference with username and password matching
+    // MOCK_DATA.json
     // MODIFIES: None
-    // EFFECTS: Tests the getUserByCredentials method in userDao to make sure that login feature works as intended.
+    // EFFECTS: Tests the getUserByCredentials method in userDao to make sure that
+    // login feature works as intended.
     public static void testLogin(String username, String password) {
-    	System.out.println("Testing user login");
-    	
-    	
-    	User certifiedUser = userDao.getUserByCredentials(username, password);
-    	
-    	// Checks to make sure certifiedUser is not null. If not, then it means that certifiedUser has passed test assuming that user
-    	// has right credentials.
-    	if (certifiedUser != null) {
-    		System.out.println("Credentials confirmed! Welcome, " + certifiedUser.getUsername());
-    	} else {
-    		System.out.println("Login failed. Check username or password.");
-    	}
+        System.out.println("Testing user login");
+
+        User certifiedUser = userDao.getUserByCredentials(username, password);
+
+        // Checks to make sure certifiedUser is not null. If not, then it means that
+        // certifiedUser has passed test assuming that user
+        // has right credentials.
+        if (certifiedUser != null) {
+            System.out.println("Credentials confirmed! Welcome, " + certifiedUser.getUsername());
+        } else {
+            System.out.println("Login failed. Check username or password.");
+        }
     }
 }
