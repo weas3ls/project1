@@ -31,14 +31,12 @@ public class Reimbursement {
     // this.type = type;
     // }
 
-    public Reimbursement(int id, BigDecimal amount, String description, int requestee_id, int resolvee_id,
+    public Reimbursement(BigDecimal amount, String description, int requestee_id,
             int status_id, int type_id) {
         super();
-        this.id = id;
         this.amount = amount;
         this.description = description;
         this.requestee_id = requestee_id;
-        this.resolvee_id = resolvee_id;
         this.status_id = status_id;
         this.type_id = type_id;
     }
