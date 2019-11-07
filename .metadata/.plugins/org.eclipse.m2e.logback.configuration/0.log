@@ -1071,3 +1071,8 @@ java.io.FileNotFoundException: E:\Revature\Training\Projects\Project 1\.metadata
 2019-11-06 16:10:00,810 [Worker-42: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory E:\Revature\Training\Projects\Project 01\project1\src\main\resources
 2019-11-06 16:10:00,812 [Worker-42: Building workspace] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (Cp1252 actually) to copy filtered resources, i.e. build is platform dependent!
 2019-11-06 16:10:00,836 [Worker-42: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory E:\Revature\Training\Projects\Project 01\project1\src\test\resources
+2019-11-06 19:10:14,404 [Worker-5: Building workspace] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (Cp1252 actually) to copy filtered resources, i.e. build is platform dependent!
+2019-11-06 19:10:14,428 [Worker-5: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory E:\Revature\Training\Projects\Project 01\project1\src\main\resources
+2019-11-06 19:10:14,430 [Worker-5: Building workspace] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (Cp1252 actually) to copy filtered resources, i.e. build is platform dependent!
+2019-11-06 19:10:14,445 [Worker-5: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory E:\Revature\Training\Projects\Project 01\project1\src\test\resources
+2019-11-06 19:13:02,350 [Worker-2: Loading available Gradle versions] INFO  o.e.b.c.i.u.g.PublishedGradleVersions - Gradle version information cache is out-of-date. Trying to update.
