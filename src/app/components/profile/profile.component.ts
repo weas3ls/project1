@@ -15,7 +15,7 @@ export class ProfileComponent implements OnInit {
     constructor(private loginService: LoginService) { }
 
     ngOnInit() {
-        this.loggedInUser = this.loginService.$userData.subscribe(user => this.userName = `#${user.name}`);
+        this.loggedInUser = this.loginService.$userData.subscribe(user => this.userName = `#${user.firstName}`);
         this.userName = this.loggedInUser;
         // this.currentlyLoggedIn = this.loginService.$userData.subscribe(user =>this.currentlyLoggedIn = `#${user.currentlyLoggedIn}`);
         console.log(this.currentlyLoggedIn);

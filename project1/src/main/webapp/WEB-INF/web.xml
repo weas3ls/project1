@@ -6,6 +6,13 @@
   <display-name>Archetype Created Web Application</display-name>  
   
   
+  <context-param>
+  	<param-name>userid</param-name>
+  	<param-value>userid</param-value>
+  </context-param>
+
+  
+  
   <servlet>
   	<servlet-name>LoginServlet</servlet-name>
   	<servlet-class>com.revature.servlets.LoginServlet</servlet-class>
@@ -13,6 +20,11 @@
   	<load-on-startup>1</load-on-startup>
   	
   </servlet>  
+  
+  <servlet>
+  	<servlet-name>ProfileServlet</servlet-name>
+  	<servlet-class>com.revature.servkets.ProfileServlet</servlet-class>
+  </servlet>
   
   <servlet-mapping>
   	<servlet-name>LoginServlet</servlet-name>
