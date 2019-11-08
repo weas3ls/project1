@@ -65,14 +65,14 @@ public class UserDao {
      * Otherwise, returns null.
      * 
      */
-    public User getUserByCredentials(String username, String password) {
+    public User getUserByCredentials(String email, String password) {
         try (Connection conn = ConnectionUtil.getConnection()) {
 
             // Selects from ers_user table to receive all information from user with
             // specified username
-            String sql = "SELECT * FROM ers_users WHERE ers_username = ?;";
+            String sql = "SELECT * FROM ers_users WHERE user_email = ?;";
             PreparedStatement statement = conn.prepareStatement(sql);
-            statement.setString(1, username);
+            statement.setString(1, email);
             ResultSet rs = statement.executeQuery();
 
             // If the hashed password is equal to the password in the query, then returns

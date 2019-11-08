@@ -18,9 +18,10 @@ public class GenerateReimbursementsService {
     public static void main(String[] args) throws JsonParseException, JsonMappingException, IOException {
         ObjectMapper objectMapper = new ObjectMapper();
 
-        File file = new File("E:\\Revature\\Training\\Projects\\Project 01\\MOCK_REIMBURSEMENT_DATA.json");
-        // File file = new File(
-        // "C:\\Users\\weas3ls\\Documents\\revature_training\\project1\\MOCK_REIMBURSEMENT_DATA.json");
+        // File file = new File("E:\\Revature\\Training\\Projects\\Project
+        // 01\\MOCK_REIMBURSEMENT_DATA.json");
+        File file = new File(
+                "C:\\Users\\weas3ls\\Documents\\revature_training\\project1\\MOCK_REIMBURSEMENT_DATA.json");
 
         Reimbursement[] reimbursements;
 

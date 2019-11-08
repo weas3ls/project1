@@ -9,58 +9,42 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.revature.models.User;
-import com.revature.services.*;
+import com.revature.services.UserServices;
 
 public class LoginServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
 
     private ObjectMapper om = new ObjectMapper();
-
-    // UserDao userDao = new UserDao();
-    // ReimbursementDao reimbursementDao = new ReimbursementDao();
     UserServices userServices = new UserServices();
-    ReimbursementService reimbursementServices = new ReimbursementService();
-
-    @Override
-    public void init() throws ServletException {
-
-    }
 
     @Override
     protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        // Add CORS headers
+        resp.setHeader("Access-Control-Allow-Origin", "*");
+        resp.setHeader("Access-Control-Allow-Headers", "content-type");
 
-    }
-
-    @Override
-    public void destroy() {
+        super.service(req, resp);
 
     }
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         User user = om.readValue(req.getReader(), User.class);
-        System.out.println(user);
-        // User savedUser = UserServices.userLogin(user);
-        // om.writeValue(resp.getWriter(), savedUser);
 
-        // // First generates string of location in request
-        // String info = req.getPathInfo();
+        User userLoggedIn = userServices.userLogin(user.getEmail(), user.getPassword());
 
-        // if (info == null) {
-        // resp.setStatus(400);
-        // return;
-        // }
+        if (userLoggedIn != null) {
+            // Sets password and password salt to empty string to prevent server data from
+            // leaking into the client side.
+            // Moved into conditional statement to prevent nullPointerException
+            userLoggedIn.setPassword("");
+            userLoggedIn.setPasswordSalt("");
 
-        // String[] parts = info.split("/");
-
-        // if (parts.length <= 0) {
-        // resp.setStatus(400);
-        // return;
-        // }
-
-        // if (parts[1] == "login") {
-
-        // }
+            resp.setStatus(200);
+            om.writeValue(resp.getWriter(), userLoggedIn);
+        } else {
+            resp.setStatus(401);
+            resp.getWriter().write("Log in failed!");
+        }
     }
-
 }

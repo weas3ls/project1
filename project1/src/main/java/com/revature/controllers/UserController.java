@@ -17,7 +17,7 @@ public class UserController {
 	public void executeControl() {
 		switch (this.command) {
 		case "login":
-			userServices.userLogin(username, password);
+			//userServices.userLogin(username, password);
 			break;
 
 		default:
