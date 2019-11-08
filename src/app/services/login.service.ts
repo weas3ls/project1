@@ -1,9 +1,10 @@
 import { Injectable, Output, EventEmitter } from '@angular/core';
 import { Router } from '@angular/router';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 import { Subject, Observable } from 'rxjs';
 import { User } from '../components/models/user';
+import { DomElementSchemaRegistry } from '@angular/compiler';
 // import { url } from 'inspector';
 
 /* Note that services will generally have this decorator */
@@ -32,37 +33,34 @@ export class LoginService {
     // would it be injected?
     constructor(private router: Router, private httpClient: HttpClient) { }
 
-    login(credentials: { email: string, password: string }) {
-        const valid = this.validCredentials.some(obj => {
-            return obj.email === credentials.email &&
-                obj.password === credentials.password;
-        });
+    async login(credentials: { email: string, password: string }) {
 
-        if (valid) {
-            this.currentlyLoggedIn = true;
-            this.router.navigateByUrl('/profile');
-            let user: User = {
-                id: 0,
-                name: 'Abby',
-                email: credentials.email,
+        const url = 'http://localhost:11000/project1/login';
+        const user = await this.httpClient.post(url, credentials).toPromise();
+        
+        if (user) {
+            console.log(user['firstName']);
+            let loggedInUser:User = {
+                id: user['id'],
+                firstName: user['firstName'],
+                email: user['email'],
                 currentlyLoggedIn: true
             }
-            return user;
+            return loggedInUser;
+            // this.currentlyLoggedIn = true;
+            // this.router.navigateByUrl('/profile');
+            // let user: User = {
+            //     id: 0,
+            //     name: 'Abby',
+            //     email: credentials.email,
+            //     currentlyLoggedIn: true
+            //console.log(user);
+
+            //}
+            // return user;
             // this.httpClient.get(url).subscribe((user: User) => this.loggedInUser.next(user));
         } else {
             return null;
         }
-    }
-
-    loginHttp(credentials: { email: string, password: string }) {
-        const loginCredentials = {
-            username: credentials.email,
-            password: credentials.password
-        };
-        const url = 'http://localhost:8080/second-webapp/session';
-        this.httpClient.post(url, loginCredentials)
-            .subscribe((data) => {
-                console.log(data);
-            });
     }
 }

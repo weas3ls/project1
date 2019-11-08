@@ -16,7 +16,7 @@ public class GenerateReimbursementsService {
     static ReimbursementDao reimbursementDao = new ReimbursementDao();
     static ReimbursementService reimbursementService = new ReimbursementService();
 
-    public static void main(String[] args) throws JsonParseException, JsonMappingException, IOException {
+    /*public static void main(String[] args) throws JsonParseException, JsonMappingException, IOException {
         ObjectMapper objectMapper = new ObjectMapper();
 
          File file = new File("E:\\Revature\\Training\\Projects\\Project 01\\MOCK_REIMBURSEMENT_DATA.json");
@@ -44,7 +44,7 @@ public class GenerateReimbursementsService {
         System.out.println(testReimb); // Expected: For information to match that of that in ers_reimbursement table in SQL PostgreSQL
         
 
-
     }
+     */
 
 }
