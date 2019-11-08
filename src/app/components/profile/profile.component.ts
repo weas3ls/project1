@@ -11,6 +11,7 @@ export class ProfileComponent implements OnInit {
     currentlyLoggedIn;
     loggedInUser: Subscription;
     userName;
+    selectedRequest: Request;
 
     constructor(private loginService: LoginService) { }
 
@@ -19,5 +20,9 @@ export class ProfileComponent implements OnInit {
         this.userName = this.loggedInUser;
         // this.currentlyLoggedIn = this.loginService.$userData.subscribe(user =>this.currentlyLoggedIn = `#${user.currentlyLoggedIn}`);
         console.log(this.currentlyLoggedIn);
+    }
+
+    onSelect(request: Request): void {
+        this.selectedRequest = request;
     }
 }
