@@ -13,13 +13,13 @@ import com.revature.passwordhash.PasswordHashing;
 
 public class GenerateUsersService {
     static UserDao userDao = new UserDao();
-/*
+
     public static void main(String[] args) throws JsonParseException, JsonMappingException, IOException {
         ObjectMapper objectMapper = new ObjectMapper();
 
-         File file = new File("E:\\Revature\\Training\\Projects\\Project"
-        +" 01\\MOCK_DATA.json");
-        //File file = new File("C:\\Users\\weas3ls\\Documents\\revature_training\\project1\\MOCK_DATA.json");
+        // File file = new File("E:\\Revature\\Training\\Projects\\Project" + "
+        // 01\\MOCK_DATA.json");
+        File file = new File("C:\\Users\\weas3ls\\Documents\\revature_training\\project1\\MOCK_DATA.json");
 
         User[] users;
 
@@ -33,7 +33,7 @@ public class GenerateUsersService {
             if (user.getRoleId() != 1) {
                 user.setRoleId(2);
             }
-            //userDao.registerUser(user);
+            // userDao.registerUser(user);
         }
 
         // Create a new user using the UserDao's registerUser method
@@ -44,8 +44,6 @@ public class GenerateUsersService {
         System.out.println("Logging into manager3..");
         testLogin("manager3", "password111");
     }
-    
-    */
 
     // REQUIRED: valid user reference with username and password matching
     // MOCK_DATA.json
