@@ -1,6 +1,6 @@
 export interface User {
     id: Number;
-    name: String;
+    firstName: String;
     email: String;
     currentlyLoggedIn: boolean;
 }

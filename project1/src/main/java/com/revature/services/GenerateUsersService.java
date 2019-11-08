@@ -13,7 +13,7 @@ import com.revature.passwordhash.PasswordHashing;
 
 public class GenerateUsersService {
     static UserDao userDao = new UserDao();
-
+/*
     public static void main(String[] args) throws JsonParseException, JsonMappingException, IOException {
         ObjectMapper objectMapper = new ObjectMapper();
 
@@ -44,6 +44,8 @@ public class GenerateUsersService {
         System.out.println("Logging into manager3..");
         testLogin("manager3", "password111");
     }
+    
+    */
 
     // REQUIRED: valid user reference with username and password matching
     // MOCK_DATA.json
