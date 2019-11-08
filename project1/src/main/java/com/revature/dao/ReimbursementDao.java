@@ -81,6 +81,33 @@ public class ReimbursementDao {
         }
         return null;
     }
+    
+    /**
+     * REQUIRED: Valid reimbursement ID
+     * MODIFIES: None
+     * EFFECTS: Returns a Reimbursement object given the ID of a reimbursement request.
+     */
+    public Reimbursement getTicketById(int reinbursementId) {
+    	try (Connection conn = ConnectionUtil.getConnection()) {
+    		String sql = "SELECT * FROM ers_reimbursement WHERE reimb_id=?;";
+    		PreparedStatement statement = conn.prepareStatement(sql);
+    		statement.setInt(1, reinbursementId);
+    		
+    		ResultSet rset = statement.executeQuery();
+    		
+    		if (rset.next()) {
+                Reimbursement reimbursement = extractReimbursement(rset);
+                return reimbursement;
+    		} else {
+    			System.out.println("ticket not found");
+    			return null;
+    		}
+    	} catch (SQLException e) {
+    		e.printStackTrace();
+    		System.out.println("SQLException in ReimbursementDao.getTicketById method");
+    		return null;
+    	}
+    }
 
     /*
      * REQUIRED: Valid Reimbursement reference MODIFIES: ers_reimbursements EFFECTS:
