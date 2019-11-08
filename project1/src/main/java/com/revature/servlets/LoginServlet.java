@@ -16,9 +16,14 @@ public class LoginServlet extends HttpServlet {
 
     private ObjectMapper om = new ObjectMapper();
     UserServices userServices = new UserServices();
+    
 
     @Override
-    protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    public void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    	// Clears the id from userid context param
+    	this.getServletContext().setInitParameter("userid", "");
+    	System.out.println("Servlet Context Param Value from LoginServlet Service Call: " + this.getServletContext().getInitParameter("userid"));
+
         // Add CORS headers
         resp.setHeader("Access-Control-Allow-Origin", "*");
         resp.setHeader("Access-Control-Allow-Headers", "content-type");
@@ -42,6 +47,11 @@ public class LoginServlet extends HttpServlet {
 
             resp.setStatus(200);
             om.writeValue(resp.getWriter(), userLoggedIn);
+//            this.getServletContext().setInitParameter("userid", String.valueOf(userLoggedIn.getId()));
+//            System.out.println("Context Param Value: " + this.getServletContext().getInitParameter("userid"));
+            // Forwards the servlet to the profile page. Profile should pickup the user ID from the req object passed in this call, which
+            // then its init method will set the context-param, thus giving us access to the user id until logout is called
+            req.getRequestDispatcher("/s").forward(req, resp);
         } else {
             resp.setStatus(401);
             resp.getWriter().write("Log in failed!");
