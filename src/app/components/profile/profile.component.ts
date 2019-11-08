@@ -1,6 +1,8 @@
-import { LoginService } from './../../services/login.service';
 import { Component, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
+
+import { User } from './../models/User';
+import { LoginService } from './../../services/login.service';
 
 @Component({
     selector: 'app-profile',
@@ -9,15 +11,19 @@ import { Subscription } from 'rxjs';
 })
 export class ProfileComponent implements OnInit {
     currentlyLoggedIn;
-    loggedInUser: Subscription;
-    userName;
+    loggedInUser: User;
+    userFirstName;
+    selectedRequest: Request;
 
     constructor(private loginService: LoginService) { }
 
     ngOnInit() {
-        this.loggedInUser = this.loginService.$userData.subscribe(user => this.userName = `#${user.firstName}`);
-        this.userName = this.loggedInUser;
-        // this.currentlyLoggedIn = this.loginService.$userData.subscribe(user =>this.currentlyLoggedIn = `#${user.currentlyLoggedIn}`);
-        console.log(this.currentlyLoggedIn);
+        this.loggedInUser = this.loginService.loggedInUser;
+        this.userFirstName = this.loggedInUser.firstName;
+        this.currentlyLoggedIn = this.loginService.currentlyLoggedIn;
+    }
+
+    onSelect(request: Request): void {
+        this.selectedRequest = request;
     }
 }

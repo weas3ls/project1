@@ -37,11 +37,11 @@ public class LoginServlet extends HttpServlet {
         User user = om.readValue(req.getReader(), User.class);
 
         User userLoggedIn = userServices.userLogin(user.getEmail(), user.getPassword());
-        
-        // 
+
         if (userLoggedIn != null) {
-            // Sets password and password salt to empty string to prevent server data from leaking into the client side.
-        	// Moved into conditional statement to prevent nullPointerException
+            // Sets password and password salt to empty string to prevent server data from
+            // leaking into the client side.
+            // Moved into conditional statement to prevent nullPointerException
             userLoggedIn.setPassword("");
             userLoggedIn.setPasswordSalt("");
 

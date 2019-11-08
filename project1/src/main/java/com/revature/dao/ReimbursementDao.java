@@ -59,8 +59,9 @@ public class ReimbursementDao {
 
     }
 
-    /**
-     * REQUIRED: MODIFIES: EFFECTS:
+    /*
+     * REQUIRED: User Id MODIFIES: None EFFECTS: Returns all tickets for specific
+     * user
      */
     public List<Reimbursement> getUserReimbursements(int userId) {
         try (Connection conn = ConnectionUtil.getConnection()) {
