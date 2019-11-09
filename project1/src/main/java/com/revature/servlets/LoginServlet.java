@@ -6,6 +6,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.revature.models.User;
@@ -20,14 +21,13 @@ public class LoginServlet extends HttpServlet {
 
     @Override
     public void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-    	// Clears the id from userid context param
-    	this.getServletContext().setInitParameter("userid", "");
-    	System.out.println("Servlet Context Param Value from LoginServlet Service Call: " + this.getServletContext().getInitParameter("userid"));
-
         // Add CORS headers
         resp.setHeader("Access-Control-Allow-Origin", "*");
         resp.setHeader("Access-Control-Allow-Headers", "content-type");
 
+        HttpSession session = req.getSession();
+        session.invalidate();
+        
         super.service(req, resp);
 
     }
@@ -45,14 +45,29 @@ public class LoginServlet extends HttpServlet {
             userLoggedIn.setPassword("");
             userLoggedIn.setPasswordSalt("");
 
+            // this.getServletContext().setInitParameter("userid",
+            // String.valueOf(userLoggedIn.getId()));
+            // System.out.println("Context Param Value: " +
+            // this.getServletContext().getInitParameter("userid"));
+            // Forwards the servlet to the profile page. Profile should pickup the user ID
+            // from the req object passed in this call, which
+            // then its init method will set the context-param, thus giving us access to the
+            // user id until logout is called
+            HttpSession session = req.getSession();
+            session.setAttribute("userid", Integer.valueOf(userLoggedIn.getId()));
+            
+//            req.setAttribute("userid", Integer.valueOf(userLoggedIn.getId()));
+            System.out.println(userLoggedIn.getId());
+            
+            System.out.println("Value of parameter session ID: " + session.getAttribute("userid"));
             resp.setStatus(200);
             om.writeValue(resp.getWriter(), userLoggedIn);
-//            this.getServletContext().setInitParameter("userid", String.valueOf(userLoggedIn.getId()));
-//            System.out.println("Context Param Value: " + this.getServletContext().getInitParameter("userid"));
-            // Forwards the servlet to the profile page. Profile should pickup the user ID from the req object passed in this call, which
-            // then its init method will set the context-param, thus giving us access to the user id until logout is called
-            req.getRequestDispatcher("/s").forward(req, resp);
+            //req.getRequestDispatcher("/profile").forward(req, resp);
+            
+
+
         } else {
+        	
             resp.setStatus(401);
             resp.getWriter().write("Log in failed!");
         }

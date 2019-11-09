@@ -18,8 +18,8 @@ public class ReimbursementService {
      * this function.
      * 
      */
-    public List<Reimbursement> getUserTickets(User user) {
-        List<Reimbursement> userTickets = reimbursementDao.getUserReimbursements(user.getId());
+    public List<Reimbursement> getUserTickets(int id) {
+        List<Reimbursement> userTickets = reimbursementDao.getUserReimbursements(id);
         return userTickets;
 
         // int userRole = user.getRoleId();
@@ -80,10 +80,9 @@ public class ReimbursementService {
     }
 
     /**
-     * REQUIRED: Valid remibursement ID integer
-     * MODIFIES: Nothing
-     * EFFECTS: Returns a reimbursement object containing information from the SQL database or a null pointer reference
-     * depending on the validity of the given integer
+     * REQUIRED: Valid remibursement ID integer MODIFIES: Nothing EFFECTS: Returns a
+     * reimbursement object containing information from the SQL database or a null
+     * pointer reference depending on the validity of the given integer
      */
     public Reimbursement getTicketById(int ticketId) {
         Reimbursement ticket = reimbursementDao.getTicketById(ticketId);

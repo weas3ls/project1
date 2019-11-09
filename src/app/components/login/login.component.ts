@@ -16,7 +16,7 @@ export class LoginComponent implements OnInit {
     inputEmail = '';
     inputPassword = '';
     validatingForm: FormGroup;
-    loggedInUser: Subscription;
+    loggedInUser: User;
     userName;
     currentlyLoggedIn = false;
     user: User;
@@ -31,8 +31,8 @@ export class LoginComponent implements OnInit {
             email: new FormControl('', Validators.email),
             password: new FormControl('', Validators.required)
         });
-        this.loggedInUser = this.loginService.$userData.subscribe(user => this.userName = `#${user.firstName}`);
-        // this.currentlyLoggedIn = this.loginService.$userData.subscribe(user => this.currentlyLoggedIn = `#${user.currentlyLoggedIn}`);
+        this.loggedInUser = this.loginService.loggedInUser;
+        this.currentlyLoggedIn = this.loggedInUser.currentlyLoggedIn;
         console.log(this.userName);
     }
 
