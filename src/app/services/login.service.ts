@@ -13,6 +13,7 @@ export class LoginService {
 
     currentlyLoggedIn = false;
     loggedInUser: User;
+    $userData: any;
 
     constructor(private router: Router, private httpClient: HttpClient) { }
 

@@ -4,29 +4,50 @@
     <display-name>Archetype Created Web Application</display-name>
 
 
-    <context-param>
-        <param-name>userid</param-name>
-        <param-value>userid</param-value>
-    </context-param>
-
-
-    <servlet>
-        <servlet-name>ProfileServlet</servlet-name>
-        <servlet-class>com.revature.servkets.ProfileServlet</servlet-class>
-    </servlet>
 
 
     <servlet>
         <servlet-name>LoginServlet</servlet-name>
         <servlet-class>com.revature.servlets.LoginServlet</servlet-class>
-
+        <init-param>
+            <param-name>userid</param-name>
+            <param-value>userid</param-value>
+        </init-param>
         <load-on-startup>1</load-on-startup>
-
     </servlet>
+    
+
+    <servlet>
+        <servlet-name>ProfileServlet</servlet-name>
+        <servlet-class>com.revature.servlets.ProfileServlet</servlet-class>
+            <init-param>
+            	<param-name>userid</param-name>
+            	<param-value>userid</param-value>
+        	</init-param>
+    </servlet>
+
+	<servlet>
+		<servlet-name>SelectServlet</servlet-name>
+		<servlet-class>com.revature.servlets.SelectServlet</servlet-class>
+		<init-param>
+			<param-name>userid</param-name>
+			<param-value>userid</param-value>
+		</init-param>
+	</servlet>
 
     <servlet-mapping>
         <servlet-name>LoginServlet</servlet-name>
         <url-pattern>/login</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>ProfileServlet</servlet-name>
+        <url-pattern>/profile/*</url-pattern>
+    </servlet-mapping>
+    
+    <servlet-mapping>
+    	<servlet-name>SelectServlet</servlet-name>
+    	<url-pattern>/request/*</url-pattern>
     </servlet-mapping>
 
     <welcome-file-list>
