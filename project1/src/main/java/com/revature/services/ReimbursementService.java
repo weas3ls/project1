@@ -95,4 +95,9 @@ public class ReimbursementService {
             return null;
         }
     }
+
+	public List<Reimbursement> getAllTickets() {
+		List<Reimbursement> tickets = reimbursementDao.getAllReimbursements();
+		return tickets;
+	}
 }

@@ -30,4 +30,8 @@ public class UserServices {
         return null;
     }
 
+	public User getUserById(int id) {
+		return userDao.getUserById(id);
+	}
+
 }
