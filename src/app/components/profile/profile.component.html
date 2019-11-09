@@ -1,10 +1,13 @@
 <div class="row" *ngIf="currentlyLoggedIn; else login">
-    <div class="col-12 mb-md-5">
+    <div class="col-12 justify-content-between">
         <h2>Welcome {{ userFirstName }}!</h2>
+        <app-new-request></app-new-request>
     </div>
-    <app-requests></app-requests>
+    <div class="col-12 mb-md-5">
+        <app-requests></app-requests>
+    </div>
     <app-request-detail [request]="selectedRequest"></app-request-detail>
 </div>
 <ng-template #login>
-    <h2 class="text-center">You aren't logged in<br>Please log in to access your profile</h2>
+    <h2 class="text-center h2">You aren't logged in<br>Please log in to access your profile</h2>
 </ng-template>

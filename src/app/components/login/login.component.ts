@@ -16,13 +16,10 @@ export class LoginComponent implements OnInit {
     inputEmail = '';
     inputPassword = '';
     validatingForm: FormGroup;
-    loggedInUser: Subscription;
-    userName;
+    loggedInUser: User;
+    userFirstName;
     currentlyLoggedIn = false;
     user: User;
-
-    // Flag set to true when user supplies invalid input
-    invalidInput = false;
 
     constructor(private loginService: LoginService) { }
 
@@ -31,9 +28,6 @@ export class LoginComponent implements OnInit {
             email: new FormControl('', Validators.email),
             password: new FormControl('', Validators.required)
         });
-        this.loggedInUser = this.loginService.$userData.subscribe(user => this.userName = `#${user.firstName}`);
-        // this.currentlyLoggedIn = this.loginService.$userData.subscribe(user => this.currentlyLoggedIn = `#${user.currentlyLoggedIn}`);
-        console.log(this.userName);
     }
 
     get email() {
@@ -52,8 +46,7 @@ export class LoginComponent implements OnInit {
         this.user = await this.loginService.login(credentials);
         if (this.user) {
             this.currentlyLoggedIn = this.user.currentlyLoggedIn;
-            this.userName = this.user.firstName;
-
+            this.userFirstName = this.user.firstName;
         } else {
             console.log('login failed');
         }
