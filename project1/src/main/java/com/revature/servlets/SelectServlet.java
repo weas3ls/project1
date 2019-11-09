@@ -25,7 +25,10 @@ public class SelectServlet extends HttpServlet {
 		String info = req.getPathInfo();
 		
 		HttpSession session = req.getSession(false);
-		Integer userId = Integer.valueOf((String) session.getAttribute("userid").toString());
+		Integer userId = null;
+		if (session != null) {
+			userId = Integer.valueOf((String) session.getAttribute("userid").toString());
+		}
 		
 		if (info == null) {
 			resp.setStatus(400);
@@ -33,7 +36,7 @@ public class SelectServlet extends HttpServlet {
 		}
 		
 		String[] parts = info.split("/");
-		
+		System.out.println(parts[0] + "/" + parts[1]);
 		if (parts.length <= 0) {
 			resp.setStatus(400);
 			return;
@@ -52,7 +55,7 @@ public class SelectServlet extends HttpServlet {
 		
 		Reimbursement selectedReimbursement = reimbursementService.getTicketById(id);
 		
-		if (selectedReimbursement.getRequestee_id() == userId) {
+		if (selectedReimbursement.getRequestee_id() != userId) {
 			resp.setStatus(404);
 			resp.getWriter().write("Failed to retrieve reimbursement.");
 		} else {

@@ -67,7 +67,7 @@ public class ProfileServlet extends HttpServlet {
 //		System.out.println(userReimbursements.size());
 //		System.out.println(userReimbursements);
 		
-		
+		session.setAttribute("userid", session.getAttribute("userid").toString());
 		om.writeValue(resp.getWriter(), userReimbursements);
 		resp.setStatus(200);
 		
