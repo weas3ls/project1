@@ -25,7 +25,9 @@
                     <mdb-icon fas icon="user"></mdb-icon> {{ userFirstName }}<span class="caret"></span>
                 </a>
                 <div *dropdownMenu class="dropdown-menu dropdown-menu-right dropdown dropdown-primary" role="menu">
-                    <a class="dropdown-item waves-light" mdbWavesEffect href="">Logout</a>
+                    <a class="dropdown-item waves-light" mdbWavesEffect (click)="logout()">
+                        <mdb-icon fas icon="sign-out-alt"></mdb-icon> Logout
+                    </a>
                 </div>
             </li>
         </ul>

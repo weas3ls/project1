@@ -1,8 +1,11 @@
-import { User } from './../models/User';
+import { Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { BehaviorSubject } from 'rxjs';
 
 import { LoginService } from 'src/app/services/login/login.service';
+
+import { User } from './../models/User';
 
 @Component({
     selector: 'app-login',
@@ -20,7 +23,12 @@ export class LoginComponent implements OnInit {
     currentlyLoggedIn = false;
     user: User;
 
-    constructor(private loginService: LoginService) { }
+    private loggedIn: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
+
+    constructor(
+        private loginService: LoginService,
+        private router: Router
+    ) { }
 
     ngOnInit() {
         this.validatingForm = new FormGroup({
@@ -49,5 +57,11 @@ export class LoginComponent implements OnInit {
         } else {
             console.log('login failed');
         }
+    }
+
+    logout() {
+        this.loggedIn.next(false);
+        this.user = null;
+        this.router.navigate(['/']);
     }
 }
