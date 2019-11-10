@@ -5,7 +5,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { UrlSerializer } from '@angular/router';
 
-import { MDBBootstrapModulesPro, MDBSpinningPreloader } from 'ng-uikit-pro-standard';
+import { MDBBootstrapModulesPro, MDBSpinningPreloader, ToastModule } from 'ng-uikit-pro-standard';
 
 import { AppRoutingModule } from './app-routing.module';
 import { LowerCaseUrlSerializer } from './lowerCaseUrlSerializer';
@@ -42,7 +42,8 @@ import { ErsIdPipe } from './pipes/ers-id.pipe';
         FormsModule,
         ReactiveFormsModule,
         HttpClientModule,
-        BrowserAnimationsModule
+        BrowserAnimationsModule,
+        ToastModule.forRoot()
     ],
     providers: [
         LoginService,

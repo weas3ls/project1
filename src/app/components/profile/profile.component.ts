@@ -9,7 +9,7 @@ import { LoginService } from '../../services/login/login.service';
     styleUrls: ['./profile.component.scss']
 })
 export class ProfileComponent implements OnInit {
-    currentlyLoggedIn = false;
+    currentlyLoggedIn = true;
     loggedInUser: User;
     userFirstName;
     selectedRequest: Request;
@@ -23,9 +23,5 @@ export class ProfileComponent implements OnInit {
             this.userFirstName = this.loggedInUser.firstName;
             this.currentlyLoggedIn = this.loggedInUser.currentlyLoggedIn;
         }
-    }
-
-    onSelect(request: Request): void {
-        this.selectedRequest = request;
     }
 }
