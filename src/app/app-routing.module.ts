@@ -7,8 +7,6 @@ import { ProfileComponent } from './components/profile/profile.component';
 import { NewRequestComponent } from './components/new-request/new-request.component';
 import { UserGuardService } from './services/user-guard/user-guard.service';
 
-
-
 const routes: Routes = [{
     path: '',
     redirectTo: '/profile',

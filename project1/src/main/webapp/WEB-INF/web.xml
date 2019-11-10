@@ -4,8 +4,6 @@
     <display-name>Archetype Created Web Application</display-name>
 
 
-
-
     <servlet>
         <servlet-name>LoginServlet</servlet-name>
         <servlet-class>com.revature.servlets.LoginServlet</servlet-class>
@@ -15,34 +13,52 @@
         </init-param>
         <load-on-startup>1</load-on-startup>
     </servlet>
-    
+
 
     <servlet>
         <servlet-name>ProfileServlet</servlet-name>
         <servlet-class>com.revature.servlets.ProfileServlet</servlet-class>
-            <init-param>
-            	<param-name>userid</param-name>
-            	<param-value>userid</param-value>
-        	</init-param>
+        <init-param>
+            <param-name>userid</param-name>
+            <param-value>userid</param-value>
+        </init-param>
     </servlet>
 
-	<servlet>
-		<servlet-name>SelectServlet</servlet-name>
-		<servlet-class>com.revature.servlets.SelectServlet</servlet-class>
-		<init-param>
-			<param-name>userid</param-name>
-			<param-value>userid</param-value>
-		</init-param>
-	</servlet>
-	
-	<servlet>
-		<servlet-name>ManagerServlet</servlet-name>
-		<servlet-class>com.revature.servlets.ManagerServlet</servlet-class>
-		<init-param>
-			<param-name>userid</param-name>
-			<param-value>userid</param-value>
-		</init-param>
-	</servlet>
+    <servlet>
+        <servlet-name>SelectServlet</servlet-name>
+        <servlet-class>com.revature.servlets.SelectServlet</servlet-class>
+        <init-param>
+            <param-name>userid</param-name>
+            <param-value>userid</param-value>
+        </init-param>
+    </servlet>
+
+    <servlet>
+        <servlet-name>ManagerSelectServlet</servlet-name>
+        <servlet-class>com.revature.servlets.ManagerSelectServlet</servlet-class>
+        <init-param>
+            <param-name>userid</param-name>
+            <param-value>userid</param-value>
+        </init-param>
+    </servlet>
+
+    <servlet>
+        <servlet-name>ManagerResolveServlet</servlet-name>
+        <servlet-class>com.revature.servlets.ManagerResolveServlet</servlet-class>
+        <init-param>
+            <param-name>userid</param-name>
+            <param-value>userid</param-value>
+        </init-param>
+    </servlet>
+
+    <servlet>
+        <servlet-name>NewRequestServlet</servlet-name>
+        <servlet-class>com.revature.servlets.NewRequestServlet</servlet-class>
+        <init-param>
+            <param-name>userid</param-name>
+            <param-value>userid</param-value>
+        </init-param>
+    </servlet>
 
     <servlet-mapping>
         <servlet-name>LoginServlet</servlet-name>
@@ -53,15 +69,25 @@
         <servlet-name>ProfileServlet</servlet-name>
         <url-pattern>/profile/*</url-pattern>
     </servlet-mapping>
-    
+
     <servlet-mapping>
-    	<servlet-name>SelectServlet</servlet-name>
-    	<url-pattern>/request/*</url-pattern>
+        <servlet-name>SelectServlet</servlet-name>
+        <url-pattern>/request/*</url-pattern>
     </servlet-mapping>
-    
+
     <servlet-mapping>
-    	<servlet-name>ManagerServlet</servlet-name>
-    	<url-pattern>/manage</url-pattern>
+        <servlet-name>ManagerSelectServlet</servlet-name>
+        <url-pattern>/manager</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>ManagerResolveServlet</servlet-name>
+        <url-pattern>/resolve/*</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>NewRequestServlet</servlet-name>
+        <url-pattern>/new-request</url-pattern>
     </servlet-mapping>
 
     <welcome-file-list>
