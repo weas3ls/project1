@@ -25,6 +25,7 @@ export class ProfileComponent implements OnInit {
         }
     }
 
+
     onSelect(request: Request): void {
         this.selectedRequest = request;
     }
