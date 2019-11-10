@@ -1,11 +1,14 @@
-import { LoginService } from './services/login.service';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { UrlSerializer } from '@angular/router';
 
-import { MDBBootstrapModule } from 'angular-bootstrap-md';
+import { MDBBootstrapModulesPro, MDBSpinningPreloader } from 'ng-uikit-pro-standard';
+
 import { AppRoutingModule } from './app-routing.module';
+import { LowerCaseUrlSerializer } from './lowerCaseUrlSerializer';
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './components/header/header.component';
 import { LoginComponent } from './components/login/login.component';
@@ -13,6 +16,12 @@ import { ProfileComponent } from './components/profile/profile.component';
 import { RequestsComponent } from './components/requests/requests.component';
 import { NewRequestComponent } from './components/new-request/new-request.component';
 import { RequestDetailComponent } from './components/request-detail/request-detail.component';
+import { AllRequestsComponent } from './components/all-requests/all-requests.component';
+
+import { UserGuardService } from './services/user-guard/user-guard.service';
+import { LoginService } from './services/login/login.service';
+
+import { ErsIdPipe } from './pipes/ers-id.pipe';
 
 @NgModule({
     declarations: [
@@ -22,17 +31,28 @@ import { RequestDetailComponent } from './components/request-detail/request-deta
         ProfileComponent,
         RequestsComponent,
         NewRequestComponent,
-        RequestDetailComponent
+        RequestDetailComponent,
+        ErsIdPipe,
+        AllRequestsComponent
     ],
     imports: [
         BrowserModule,
         AppRoutingModule,
-        MDBBootstrapModule.forRoot(),
+        MDBBootstrapModulesPro.forRoot(),
         FormsModule,
         ReactiveFormsModule,
         HttpClientModule,
+        BrowserAnimationsModule
     ],
-    providers: [LoginService],
+    providers: [
+        LoginService,
+        UserGuardService,
+        MDBSpinningPreloader,
+        {
+            provide: UrlSerializer,
+            useClass: LowerCaseUrlSerializer
+        }
+    ],
     bootstrap: [AppComponent, HeaderComponent, LoginComponent, ProfileComponent, RequestsComponent, NewRequestComponent]
 })
 export class AppModule { }

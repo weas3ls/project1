@@ -3,38 +3,26 @@
         <div class=form-row>
             <div class="col-12 col-md-6">
                 <div class="md-form mt-4 mb-3 mx-3">
-                    <input type="email" id="email" class="form-control validate white-text mx-0" mdbValidate mdbInput [formControl]="email">
-                    <label data-error="wrong" data-success="right" for="email">Your email</label>
-                    <mdb-error *ngIf="email.invalid && (email.dirty || email.touched)">
-                        Input invalid
-                    </mdb-error>
-                    <mdb-success *ngIf="email.valid && (email.dirty || email.touched)">
-                        Input valid
-                    </mdb-success>
+                    <input type="email" id="email" class="form-control mx-0 mb-0" mdbInput [formControl]="email" placeholder="Email">
+                    <label for="email">Your email</label>
                 </div>
             </div>
             <div class="col-12 col-md-6">
                 <div class="md-form mt-4 mb-3 mx-3">
-                    <input type="password" id="password" class="form-control validate white-text mx-0" mdbValidate mdbInput [formControl]="password">
-                    <label data-error="wrong" data-success="right" for="password">Your password</label>
-                    <mdb-error *ngIf="password.invalid && (password.dirty || password.touched)">
-                        Input invalid
-                    </mdb-error>
-                    <mdb-success *ngIf="password.valid && (password.dirty || password.touched)">
-                        Input valid
-                    </mdb-success>
+                    <input type="password" id="password" class="form-control mx-0 mb-0" mdbInput [formControl]="password" placeholder="Password">
+                    <label for="password">Your password</label>
                 </div>
             </div>
         </div>
         <div class="md-form mt-4 mb-3 ml-xl-3">
-            <button mdbBtn color="success" outline="true" size="sm" class="waves-light m-0" (click)="submit()" mdbWavesEffect>Login</button>
+            <button mdbBtn color="success" rounded="true" class="m-0" (click)="submit()" mdbWavesEffect>Login</button>
         </div>
     </form>
     <ng-template #loggedIn>
         <ul class="navbar-nav ml-lg-auto nav-flex-icons mr-xl-5">
             <li class="nav-item dropdown" dropdown>
                 <a dropdownToggle mdbWavesEffect type="button" class="nav-link dropdown-toggle waves-light" mdbWavesEffect>
-                    <mdb-icon fas icon="user"></mdb-icon> {{ userName }}<span class="caret"></span>
+                    <mdb-icon fas icon="user"></mdb-icon> {{ userFirstName }}<span class="caret"></span>
                 </a>
                 <div *dropdownMenu class="dropdown-menu dropdown-menu-right dropdown dropdown-primary" role="menu">
                     <a class="dropdown-item waves-light" mdbWavesEffect href="">Logout</a>

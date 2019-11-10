@@ -2,8 +2,7 @@ import { User } from './../models/User';
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 
-import { LoginService } from 'src/app/services/login.service';
-import { Subscription } from 'rxjs';
+import { LoginService } from 'src/app/services/login/login.service';
 
 @Component({
     selector: 'app-login',
@@ -17,12 +16,9 @@ export class LoginComponent implements OnInit {
     inputPassword = '';
     validatingForm: FormGroup;
     loggedInUser: User;
-    userName;
+    userFirstName;
     currentlyLoggedIn = false;
     user: User;
-
-    // Flag set to true when user supplies invalid input
-    invalidInput = false;
 
     constructor(private loginService: LoginService) { }
 
@@ -31,9 +27,6 @@ export class LoginComponent implements OnInit {
             email: new FormControl('', Validators.email),
             password: new FormControl('', Validators.required)
         });
-        this.loggedInUser = this.loginService.loggedInUser;
-        this.currentlyLoggedIn = this.loggedInUser.currentlyLoggedIn;
-        console.log(this.userName);
     }
 
     get email() {
@@ -52,8 +45,7 @@ export class LoginComponent implements OnInit {
         this.user = await this.loginService.login(credentials);
         if (this.user) {
             this.currentlyLoggedIn = this.user.currentlyLoggedIn;
-            this.userName = this.user.firstName;
-
+            this.userFirstName = this.user.firstName;
         } else {
             console.log('login failed');
         }

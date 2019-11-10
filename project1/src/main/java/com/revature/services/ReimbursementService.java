@@ -4,9 +4,7 @@ import java.util.Iterator;
 import java.util.List;
 
 import com.revature.dao.ReimbursementDao;
-import com.revature.dao.UserDao;
 import com.revature.models.Reimbursement;
-import com.revature.models.User;
 
 public class ReimbursementService {
     ReimbursementDao reimbursementDao = new ReimbursementDao();
@@ -97,17 +95,17 @@ public class ReimbursementService {
         }
     }
 
-	public List<Reimbursement> getAllTickets() {
-		List<Reimbursement> tickets = reimbursementDao.getAllReimbursements();
-		return tickets;
-	}
+    public List<Reimbursement> getAllTickets() {
+        List<Reimbursement> tickets = reimbursementDao.getAllReimbursements();
+        return tickets;
+    }
 
-	public void resolveTicket(int userId, int statusId, Reimbursement resolvedReimbursement) {
-		reimbursementDao.setTicketStatus(userId, statusId, resolvedReimbursement);
-		
-	}
+    public void resolveTicket(int userId, int statusId, Reimbursement resolvedReimbursement) {
+        reimbursementDao.setTicketStatus(userId, statusId, resolvedReimbursement);
 
-	public boolean insertTicketRequest(Reimbursement ticketEntry) {
-		return reimbursementDao.addTicket(ticketEntry);
-	}
+    }
+
+    public boolean insertTicketRequest(Reimbursement ticketEntry) {
+        return reimbursementDao.addTicket(ticketEntry);
+    }
 }

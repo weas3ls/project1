@@ -81,32 +81,31 @@ public class ReimbursementDao {
         }
         return null;
     }
-    
+
     /**
-     * REQUIRED: Valid reimbursement ID
-     * MODIFIES: None
-     * EFFECTS: Returns a Reimbursement object given the ID of a reimbursement request.
+     * REQUIRED: Valid reimbursement ID MODIFIES: None EFFECTS: Returns a
+     * Reimbursement object given the ID of a reimbursement request.
      */
     public Reimbursement getTicketById(int reinbursementId) {
-    	try (Connection conn = ConnectionUtil.getConnection()) {
-    		String sql = "SELECT * FROM ers_reimbursement WHERE reimb_id=?;";
-    		PreparedStatement statement = conn.prepareStatement(sql);
-    		statement.setInt(1, reinbursementId);
-    		
-    		ResultSet rset = statement.executeQuery();
-    		
-    		if (rset.next()) {
+        try (Connection conn = ConnectionUtil.getConnection()) {
+            String sql = "SELECT * FROM ers_reimbursement WHERE reimb_id=?;";
+            PreparedStatement statement = conn.prepareStatement(sql);
+            statement.setInt(1, reinbursementId);
+
+            ResultSet rset = statement.executeQuery();
+
+            if (rset.next()) {
                 Reimbursement reimbursement = extractReimbursement(rset);
                 return reimbursement;
-    		} else {
-    			System.out.println("ticket not found");
-    			return null;
-    		}
-    	} catch (SQLException e) {
-    		e.printStackTrace();
-    		System.out.println("SQLException in ReimbursementDao.getTicketById method");
-    		return null;
-    	}
+            } else {
+                System.out.println("ticket not found");
+                return null;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            System.out.println("SQLException in ReimbursementDao.getTicketById method");
+            return null;
+        }
     }
 
     /*
@@ -166,25 +165,25 @@ public class ReimbursementDao {
         return reimbursement;
     }
 
-	public void setTicketStatus(int userId, int statusId, Reimbursement resolvedReimbursement) {
-		try (Connection conn = ConnectionUtil.getConnection()) {
-			String sql = "UPDATE ers_reimbursement SET reimb_resolved = CURRENT_TIMESTAMP, reimb_status_id = ?, reimb_resolver = ?"
-					+ "WHERE reimb_id = ?;";
-			PreparedStatement statement = conn.prepareStatement(sql);
-			statement.setInt(1, statusId);
-			statement.setInt(2, userId);
-			statement.setInt(3, resolvedReimbursement.getId());
-			
-			ResultSet rs = statement.executeQuery();
-			
-			if (rs.next()) {
-				resolvedReimbursement.setResolver_id(rs.getInt("reimb_resolver"));
-				resolvedReimbursement.setStatus_id(rs.getInt("reimb_status_id"));
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-			return;
-		}
-		
-	}
+    public void setTicketStatus(int userId, int statusId, Reimbursement resolvedReimbursement) {
+        try (Connection conn = ConnectionUtil.getConnection()) {
+            String sql = "UPDATE ers_reimbursement SET reimb_resolved = CURRENT_TIMESTAMP, reimb_status_id = ?, reimb_resolver = ?"
+                    + "WHERE reimb_id = ?;";
+            PreparedStatement statement = conn.prepareStatement(sql);
+            statement.setInt(1, statusId);
+            statement.setInt(2, userId);
+            statement.setInt(3, resolvedReimbursement.getId());
+
+            ResultSet rs = statement.executeQuery();
+
+            if (rs.next()) {
+                resolvedReimbursement.setResolver_id(rs.getInt("reimb_resolver"));
+                resolvedReimbursement.setStatus_id(rs.getInt("reimb_status_id"));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return;
+        }
+
+    }
 }

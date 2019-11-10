@@ -13,55 +13,54 @@ import com.revature.models.Reimbursement;
 import com.revature.services.ReimbursementService;
 
 public class SelectServlet extends HttpServlet {
-	
-	private ObjectMapper om = new ObjectMapper();
-	ReimbursementService reimbursementService = new ReimbursementService();
-	
-	
-	
-	@Override
-	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		
-		String info = req.getPathInfo();
-		
-		HttpSession session = req.getSession(false);
-		Integer userId = null;
-		if (session != null) {
-			userId = Integer.valueOf((String) session.getAttribute("userid").toString());
-		}
-		
-		if (info == null) {
-			resp.setStatus(400);
-			return;
-		}
-		
-		String[] parts = info.split("/");
-		System.out.println(parts[0] + "/" + parts[1]);
-		if (parts.length <= 0) {
-			resp.setStatus(400);
-			return;
-		}
-		int id = 0;
-		
-		try {
-			id = Integer.parseInt(parts[1]);
-		} catch (NumberFormatException e) {
-			resp.setStatus(400);
-			return;
-		}
-;
-		
-		System.out.println("Reimbursement ID returned: " + id);
-		
-		Reimbursement selectedReimbursement = reimbursementService.getTicketById(id);
-		
-		if (selectedReimbursement.getRequestee_id() != userId) {
-			resp.setStatus(404);
-			resp.getWriter().write("Failed to retrieve reimbursement.");
-		} else {
-			om.writeValue(resp.getWriter(), selectedReimbursement);
-			resp.setStatus(200);
-		}
-		
-	}
+    private static final long serialVersionUID = 1L;
+
+    private ObjectMapper om = new ObjectMapper();
+    ReimbursementService reimbursementService = new ReimbursementService();
+
+    @Override
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+
+        String info = req.getPathInfo();
+
+        HttpSession session = req.getSession(false);
+        Integer userId = null;
+        if (session != null) {
+            userId = Integer.valueOf((String) session.getAttribute("userid").toString());
+        }
+
+        if (info == null) {
+            resp.setStatus(400);
+            return;
+        }
+
+        String[] parts = info.split("/");
+        System.out.println(parts[0] + "/" + parts[1]);
+        if (parts.length <= 0) {
+            resp.setStatus(400);
+            return;
+        }
+        int id = 0;
+
+        try {
+            id = Integer.parseInt(parts[1]);
+        } catch (NumberFormatException e) {
+            resp.setStatus(400);
+            return;
+        }
+        ;
+
+        System.out.println("Reimbursement ID returned: " + id);
+
+        Reimbursement selectedReimbursement = reimbursementService.getTicketById(id);
+
+        if (selectedReimbursement.getRequestee_id() != userId) {
+            resp.setStatus(404);
+            resp.getWriter().write("Failed to retrieve reimbursement.");
+        } else {
+            om.writeValue(resp.getWriter(), selectedReimbursement);
+            resp.setStatus(200);
+        }
+
+    }
 }

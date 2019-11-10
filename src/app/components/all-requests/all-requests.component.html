@@ -1,4 +1,9 @@
-<div class="row mt-4">
+<div class="row">
+    <div class="col-12 col-md-7 mt-md-5">
+        <a routerLink="/" routerLinkActive="router-link-active" class="blue-grey-text px-4">
+            <mdb-icon fas icon="arrow-left"></mdb-icon> Back to all reimbursements
+        </a>
+    </div>
     <div class="col-12 col-md-5 ml-auto">
         <div class="md-form">
             <input type="text" [(ngModel)]="searchText" class="form-control" id="search" mdbInput autofocus>
@@ -11,14 +16,12 @@
         <div class="container-fluid">
             <div class="row">
                 <div class="text-center col-12 mx-auto">
-                    <h3 class="h3 white-text">
-                        Submitted Requests
-                    </h3>
+                    <h3 class="h3 white-text">All Requests</h3>
                 </div>
             </div>
         </div>
     </div>
-    <table id="submittedExpenseRequests" mdbTable #tableEl="mdbTable" class="mb-0" hover="true">
+    <table id="submittedExpenseRequests" mdbTable #tableEl="mdbTable" class="mb-0" hover="true" btn-table>
         <thead>
             <tr>
                 <th [mdbTableSort]="elements" sortBy="reimb_id">Reimbursement ID
@@ -39,12 +42,14 @@
                 <th [mdbTableSort]="elements" sortBy="reimb_resolved">Date Resolved
                     <mdb-icon fas icon="sort"></mdb-icon>
                 </th>
+                <th class="text-center">Action</th>
             </tr>
         </thead>
         <tbody>
             <tr *ngFor="let el of elements; let i = index" routerLink="/request/{{ el.reimb_id }}" [ngStyle]="{'cursor': 'pointer'}">
                 <th *ngIf="i+1 >= mdbTablePagination.firstItemIndex && i < mdbTablePagination.lastItemIndex" scope="row">
-                    {{ el.reimb_id | ersId }}</th>
+                    {{ el.reimb_id | ersId }}
+                </th>
                 <td *ngIf="i+1 >= mdbTablePagination.firstItemIndex && i < mdbTablePagination.lastItemIndex">
                     {{ el.reimb_type_id }}
                 </td>
@@ -52,16 +57,31 @@
                     {{ el.reimb_status_id }}
                 </td>
                 <td *ngIf="i+1 >= mdbTablePagination.firstItemIndex && i < mdbTablePagination.lastItemIndex">
-                    ${{ el.reimb_amount }}</td>
+                    ${{ el.reimb_amount }}
+                </td>
                 <td *ngIf="i+1 >= mdbTablePagination.firstItemIndex && i < mdbTablePagination.lastItemIndex">
-                    {{ el.reimb_submitted | date : 'longDate' }}</td>
+                    {{ el.reimb_submitted | date : 'longDate' }}
+                </td>
                 <td *ngIf="i+1 >= mdbTablePagination.firstItemIndex && i < mdbTablePagination.lastItemIndex">
-                    {{( el.reimb_resolved | date : 'longDate') || "Still open" }}</td>
+                    {{( el.reimb_resolved | date : 'longDate') || "Still open" }}
+                </td>
+                <td *ngIf="i+1 >= mdbTablePagination.firstItemIndex && i < mdbTablePagination.lastItemIndex" class="text-center">
+                    <span *ngIf="el.reimb_status_id == 'Pending'">
+                        <button mdbBtn color="success" rounded="true" size="sm" type="button" class="my-0"
+                            mdbWavesEffect>
+                            <mdb-icon fas icon="check"></mdb-icon>
+                        </button>
+                        <button mdbBtn color="danger" rounded="true" size="sm" type="button" class="my-0"
+                            mdbWavesEffect>
+                            <mdb-icon fas icon="times"></mdb-icon>
+                        </button>
+                    </span>
+                </td>
             </tr>
         </tbody>
         <tfoot class="grey lighten-5 w-100">
             <tr>
-                <td colspan="6">
+                <td colspan="7">
                     <mdb-table-pagination [tableEl]="tableEl" [searchDataSource]="elements"></mdb-table-pagination>
                 </td>
             </tr>

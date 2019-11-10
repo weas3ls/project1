@@ -1,0 +1,78 @@
+<div class="jumbotron text-center p-0 pb-5 mb-0">
+    <div class="container-fluid">
+        <div class="row pink white-text text-left">
+            <h2 class="card-title h2 p-3 px-4 mb-0 w-100">Expense Reimbursement Detail</h2>
+        </div>
+        <div class="row p-5">
+            <div class="col-12 col-md-6">
+                <div class="row my-2">
+                    <div class="col-6 text-right">
+                        <p class="h5">Expense Reimbursement ID</p>
+                    </div>
+                    <div class="col-6 text-left">
+                        <span class="h6 text-muted">{{ 1 | ersId }}</span>
+                    </div>
+                </div>
+                <div class="row my-2">
+                    <div class="col-6 text-right">
+                        <p class="h5">Type</p>
+                    </div>
+                    <div class="col-6 text-left">
+                        <span class="h6 text-muted">Lodging</span>
+                    </div>
+                </div>
+                <div class="row my-2">
+                    <div class="col-6 text-right">
+                        <p class="h5">Status</p>
+                    </div>
+                    <div class="col-6 text-left">
+                        <span class="h6 text-muted">Open</span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 col-md-6">
+                <div class="row my-2">
+                    <div class="col-6 text-right">
+                        <p class="h5">Submitted Date</p>
+                    </div>
+                    <div class="col-6 text-left">
+                        <span class="h6 text-muted">February 1, 2019</span>
+                    </div>
+                </div>
+                <div class="row my-2">
+                    <div class="col-6 text-right">
+                        <p class="h5">Resolved Date</p>
+                    </div>
+                    <div class="col-6 text-left">
+                        <span class="h6 text-muted">Still Open</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row px-5">
+            <table mdbTable hover="true" class="mx-5">
+                <thead>
+                    <tr>
+                        <th scope="col" class="th-lg">Date Submitted</th>
+                        <th scope="col" class="th-sm w-50">Description</th>
+                        <th scope="col" class="th-lg">Amount</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr mdbTableCol>
+                        <th scope="row"><span>February 1, 2019</span></th>
+                        <td class="text-left"><span>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Assumenda
+                                impedit, corrupti nam, sequi minima et, eveniet culpa obcaecati ex non quam magni
+                                nesciunt delectus itaque quod nisi ad quisquam tempore!</span></td>
+                        <td><span>$357</span></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="row px-5">
+            <button mdbBtn type="button" color="pink" outline="true" class="px-4" mdbWavesEffect>
+                <mdb-icon fas icon="paperclip"></mdb-icon> See Attached File
+            </button>
+        </div>
+    </div>
+</div>
