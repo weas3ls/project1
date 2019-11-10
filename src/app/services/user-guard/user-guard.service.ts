@@ -1,4 +1,4 @@
-import { Injectable, ViewChild, ElementRef } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { CanActivate, CanLoad, Router, ActivatedRouteSnapshot, RouterStateSnapshot, Route } from '@angular/router';
 
 import { ToastService } from 'ng-uikit-pro-standard';
@@ -9,8 +9,6 @@ import { LoginService } from 'src/app/services/login/login.service';
     providedIn: 'root'
 })
 export class UserGuardService implements CanActivate, CanLoad {
-
-    @ViewChild('alert', { static: true }) alert: ElementRef;
 
     constructor(
         private loginService: LoginService,
@@ -27,8 +25,8 @@ export class UserGuardService implements CanActivate, CanLoad {
     }
 
     showError() {
-        const options = { opacity: 1 };
-        this.toastrService.error('You aren\'t logged in!', 'Error!', options);
+        const options = { opacity: 1, progressBar: true, timeOut: 3000, closeButton: true, toastClass: 'pink', enableHtml: true, messageClass: 'lead', titleClass: 'h6 mb-0' };
+        this.toastrService.error('You aren\'t logged in! &#129320;', 'Hey!', options);
     }
 
     checkLoggedIn(url: string): boolean {
