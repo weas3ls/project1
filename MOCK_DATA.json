@@ -21,6 +21,6 @@
     { "username": "msavilek", "password": "fKrHMLnH3h", "firstName": "Mathilde", "lastName": "Savile", "email": "msavilek@businesswire.com" },
     { "username": "rrookl", "password": "c6IKBy", "firstName": "Rolf", "lastName": "Rook", "email": "rrookl@dmoz.org" },
     { "username": "ahatherallm", "password": "gelTn9", "firstName": "Arluene", "lastName": "Hatherall", "email": "ahatherallm@themeforest.net" },
-    { "username": "manager1", "password": "password123", "firstName": "Joey", "lastName": "Lepiscopo", "email": "joeycentral@gmail.com" , "roleId": 1},
-    { "username": "manager2", "password": "password124", "firstName": "Ahmad", "lastName": "Shabaneh", "email": "shabaneh.ahmad@gmail.com" , "roleId": 1}
+    { "username": "manager1", "password": "password123", "firstName": "Joey", "lastName": "Lepiscopo", "email": "joeycentral@gmail.com", "roleId": 1 },
+    { "username": "manager2", "password": "password124", "firstName": "Ahmad", "lastName": "Shabaneh", "email": "shabaneh.ahmad@gmail.com", "roleId": 1 }
 ]

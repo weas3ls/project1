@@ -4,6 +4,7 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { BehaviorSubject } from 'rxjs';
 
 import { LoginService } from 'src/app/services/login/login.service';
+import { ToastService } from 'ng-uikit-pro-standard';
 
 import { User } from './../models/User';
 
@@ -27,7 +28,8 @@ export class LoginComponent implements OnInit {
 
     constructor(
         private loginService: LoginService,
-        private router: Router
+        private router: Router,
+        private toastrService: ToastService
     ) { }
 
     ngOnInit() {
@@ -55,12 +57,13 @@ export class LoginComponent implements OnInit {
             this.currentlyLoggedIn = this.user.currentlyLoggedIn;
             this.userFirstName = this.user.firstName;
         } else {
-            console.log('login failed');
+            const options = { opacity: 1, progressBar: true, timeOut: 3000, closeButton: true, toastClass: 'pink' };
+            this.toastrService.error('Login Failed!', 'Sorry!', options);
         }
     }
 
     logout() {
-        this.loggedIn.next(false);
+        // this.loggedIn.next(false);
         this.user = null;
         this.router.navigate(['/']);
     }

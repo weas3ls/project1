@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 
 import { User } from './../models/User';
+import { Reimbursement } from '../models/Reimbursement';
+
+import { ProfileService } from './../../services/profile/profile.service';
 import { LoginService } from '../../services/login/login.service';
 
 @Component({
@@ -9,12 +12,16 @@ import { LoginService } from '../../services/login/login.service';
     styleUrls: ['./profile.component.scss']
 })
 export class ProfileComponent implements OnInit {
-    currentlyLoggedIn = false;
+    currentlyLoggedIn = true;
     loggedInUser: User;
     userFirstName;
     selectedRequest: Request;
+    userReimbursements;
 
-    constructor(private loginService: LoginService) { }
+    constructor(
+        private loginService: LoginService,
+        private profileService: ProfileService
+    ) { }
 
     async ngOnInit() {
         this.loggedInUser = await this.loginService.loggedInUser;
@@ -22,11 +29,7 @@ export class ProfileComponent implements OnInit {
             this.loggedInUser = this.loginService.loggedInUser;
             this.userFirstName = this.loggedInUser.firstName;
             this.currentlyLoggedIn = this.loggedInUser.currentlyLoggedIn;
+            this.userReimbursements = await this.profileService.getUserReimbursements;
         }
-    }
-
-
-    onSelect(request: Request): void {
-        this.selectedRequest = request;
     }
 }

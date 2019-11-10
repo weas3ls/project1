@@ -8,5 +8,11 @@
     </div>
 </div>
 <ng-template #login>
+    <div #alert class="alert alert-danger alert-dismissible fade show" role="alert">
+        <button type="button" class="close" aria-label="Close" (click)="closeAlert()">
+            <span aria-hidden="true">&times;</span>
+        </button>
+        <strong>Holy guacamole!</strong> You should check in on some of those fields below.
+    </div>
     <h2 class="text-center h2">You aren't logged in<br>Please log in to access your profile</h2>
 </ng-template>

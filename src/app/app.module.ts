@@ -5,7 +5,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { UrlSerializer } from '@angular/router';
 
-import { MDBBootstrapModulesPro, MDBSpinningPreloader } from 'ng-uikit-pro-standard';
+import { MDBBootstrapModulesPro, MDBSpinningPreloader, ToastModule } from 'ng-uikit-pro-standard';
 
 import { AppRoutingModule } from './app-routing.module';
 import { LowerCaseUrlSerializer } from './lowerCaseUrlSerializer';
@@ -18,8 +18,10 @@ import { NewRequestComponent } from './components/new-request/new-request.compon
 import { RequestDetailComponent } from './components/request-detail/request-detail.component';
 import { AllRequestsComponent } from './components/all-requests/all-requests.component';
 
-import { UserGuardService } from './services/user-guard/user-guard.service';
 import { LoginService } from './services/login/login.service';
+import { UserGuardService } from './services/user-guard/user-guard.service';
+import { RequestDetailService } from './services/request-detail/request-detail.service';
+import { ProfileService } from './services/profile/profile.service';
 
 import { ErsIdPipe } from './pipes/ers-id.pipe';
 
@@ -42,11 +44,14 @@ import { ErsIdPipe } from './pipes/ers-id.pipe';
         FormsModule,
         ReactiveFormsModule,
         HttpClientModule,
-        BrowserAnimationsModule
+        BrowserAnimationsModule,
+        ToastModule.forRoot()
     ],
     providers: [
         LoginService,
         UserGuardService,
+        ProfileService,
+        RequestDetailService,
         MDBSpinningPreloader,
         {
             provide: UrlSerializer,

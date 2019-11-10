@@ -9,9 +9,10 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.revature.models.*;
-import com.revature.services.*;
-import com.sun.xml.internal.ws.api.ServiceSharedFeatureMarker;
+import com.revature.models.Reimbursement;
+import com.revature.models.User;
+import com.revature.services.ReimbursementService;
+import com.revature.services.UserServices;
 
 public class ManagerResolveServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
@@ -23,32 +24,31 @@ public class ManagerResolveServlet extends HttpServlet {
     @Override
     protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-        //String info = req.getPathInfo();
+        // String info = req.getPathInfo();
 
         HttpSession session = req.getSession(false);
         Integer userId = null;
         if (session != null) {
             userId = Integer.valueOf((String) session.getAttribute("userid").toString());
         }
-        
-        
-        // Obtains the reimbursement JSON object that contains the status ID of ticket as well as the ticket ID itself
+
+        // Obtains the reimbursement JSON object that contains the status ID of ticket
+        // as well as the ticket ID itself
         Reimbursement jsonTicket = om.readValue(req.getReader(), Reimbursement.class);
-        
+
         Reimbursement resolvedReimbursement = reimbursementService.getTicketById(jsonTicket.getId());
-        
-        
+
         int statusId = jsonTicket.getStatus_id();
-        
+
         User user = userService.getUserById(userId);
-        
+
         // Checks to see if user is manager. If not, then returns 403 status
         if (user.getRoleId() != 1) {
-        	resp.setStatus(403);
-        	resp.getWriter().write("You are not authorized to access this page.");
-        	return;
+            resp.setStatus(403);
+            resp.getWriter().write("You are not authorized to access this page.");
+            return;
         }
-        
+
         // Checks to see if the manager is not approving their own status
         if (userId != resolvedReimbursement.getRequestee_id()) {
             reimbursementService.resolveTicket(userId, statusId, resolvedReimbursement);

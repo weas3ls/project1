@@ -1,6 +1,8 @@
 package com.revature.models;
 
 import java.math.BigDecimal;
+import java.sql.Date;
+import java.util.Objects;
 
 public class Reimbursement {
     private int id;
@@ -10,13 +12,15 @@ public class Reimbursement {
     private Integer resolver_id = null;
     private int status_id;
     private int type_id;
+    private Date date_submitted;
+    private Date date_resolved;
 
     // Constructor
     public Reimbursement() {
     }
 
     public Reimbursement(BigDecimal amount, String description, int requestee_id, int resolver_id, int status_id,
-            int type_id) {
+            int type_id, Date date_submitted, Date date_resolved) {
         super();
         this.amount = amount;
         this.description = description;
@@ -24,6 +28,8 @@ public class Reimbursement {
         this.resolver_id = resolver_id;
         this.status_id = status_id;
         this.type_id = type_id;
+        this.date_resolved = date_resolved;
+        this.date_submitted = date_submitted;
     }
 
     /**
@@ -125,55 +131,49 @@ public class Reimbursement {
         this.type_id = type_id;
     }
 
-    /* HashCode and Equal */
+    public Date getDate_submitted() {
+        return this.date_submitted;
+    }
+
+    public void setDate_submitted(Date date_submitted) {
+        this.date_submitted = date_submitted;
+    }
+
+    public Date getDate_resolved() {
+        return this.date_resolved;
+    }
+
+    public void setDate_resolved(Date date_resolved) {
+        this.date_resolved = date_resolved;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o == this)
+            return true;
+        if (!(o instanceof Reimbursement)) {
+            return false;
+        }
+        Reimbursement reimbursement = (Reimbursement) o;
+        return id == reimbursement.id && Objects.equals(amount, reimbursement.amount)
+                && Objects.equals(description, reimbursement.description) && requestee_id == reimbursement.requestee_id
+                && Objects.equals(resolver_id, reimbursement.resolver_id) && status_id == reimbursement.status_id
+                && type_id == reimbursement.type_id && Objects.equals(date_submitted, reimbursement.date_submitted)
+                && Objects.equals(date_resolved, reimbursement.date_resolved);
+    }
 
     @Override
     public int hashCode() {
-        final int prime = 31;
-        int result = 1;
-        result = prime * result + ((amount == null) ? 0 : amount.hashCode());
-        result = prime * result + id;
-        result = prime * result + requestee_id;
-        result = prime * result + resolver_id;
-        result = prime * result + status_id;
-        result = prime * result + type_id;
-        return result;
+        return Objects.hash(id, amount, description, requestee_id, resolver_id, status_id, type_id, date_submitted,
+                date_resolved);
     }
-
-    @Override
-    public boolean equals(Object obj) {
-        if (this == obj)
-            return true;
-        if (obj == null)
-            return false;
-        if (getClass() != obj.getClass())
-            return false;
-        Reimbursement other = (Reimbursement) obj;
-        if (amount == null) {
-            if (other.amount != null)
-                return false;
-        } else if (!amount.equals(other.amount))
-            return false;
-        if (id != other.id)
-            return false;
-        if (requestee_id != other.requestee_id)
-            return false;
-        if (resolver_id != other.resolver_id)
-            return false;
-        if (status_id != other.status_id)
-            return false;
-        if (type_id != other.type_id)
-            return false;
-        return true;
-    }
-
-    /* toString method */
 
     @Override
     public String toString() {
         return "{" + " id='" + getId() + "'" + ", amount='" + getAmount() + "'" + ", description='" + getDescription()
                 + "'" + ", requestee_id='" + getRequestee_id() + "'" + ", resolver_id='" + getResolver_id() + "'"
-                + ", status_id='" + getStatus_id() + "'" + ", type_id='" + getType_id() + "'" + "}";
+                + ", status_id='" + getStatus_id() + "'" + ", type_id='" + getType_id() + "'" + ", date_submitted='"
+                + getDate_submitted() + "'" + ", date_resolved='" + getDate_resolved() + "'" + "}";
     }
 
 }

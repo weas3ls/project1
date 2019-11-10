@@ -2,6 +2,7 @@ package com.revature.dao;
 
 import java.math.BigDecimal;
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -158,8 +159,11 @@ public class ReimbursementDao {
         Integer statusId = rs.getInt("reimb_status_id");
         Integer typeId = rs.getInt("reimb_type_id");
         String description = rs.getString("reimb_description");
+        Date date_submitted = rs.getDate("reimb_submitted");
+        Date date_resolved = rs.getDate("reimb_resolved");
 
-        Reimbursement reimbursement = new Reimbursement(amount, description, authorId, resolverId, statusId, typeId);
+        Reimbursement reimbursement = new Reimbursement(amount, description, authorId, resolverId, statusId, typeId,
+                date_submitted, date_resolved);
         reimbursement.setId(id);
         reimbursement.setResolver_id(resolverId);
         return reimbursement;
