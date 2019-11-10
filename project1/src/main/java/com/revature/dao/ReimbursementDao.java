@@ -164,4 +164,26 @@ public class ReimbursementDao {
         reimbursement.setResolver_id(resolverId);
         return reimbursement;
     }
+
+	public void setTicketStatus(int userId, int statusId, Reimbursement resolvedReimbursement) {
+		try (Connection conn = ConnectionUtil.getConnection()) {
+			String sql = "UPDATE ers_reimbursement SET reimb_resolved = CURRENT_TIMESTAMP, reimb_status_id = ?, reimb_resolver = ?"
+					+ "WHERE reimb_id = ?;";
+			PreparedStatement statement = conn.prepareStatement(sql);
+			statement.setInt(1, statusId);
+			statement.setInt(2, userId);
+			statement.setInt(3, resolvedReimbursement.getId());
+			
+			ResultSet rs = statement.executeQuery();
+			
+			if (rs.next()) {
+				resolvedReimbursement.setResolver_id(rs.getInt("reimb_resolver"));
+				resolvedReimbursement.setStatus_id(rs.getInt("reimb_status_id"));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return;
+		}
+		
+	}
 }
