@@ -100,4 +100,9 @@ public class ReimbursementService {
 		List<Reimbursement> tickets = reimbursementDao.getAllReimbursements();
 		return tickets;
 	}
+
+	public void resolveTicket(int userId, int statusId, Reimbursement resolvedReimbursement) {
+		reimbursementDao.setTicketStatus(userId, statusId, resolvedReimbursement);
+		
+	}
 }

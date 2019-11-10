@@ -15,11 +15,12 @@ import com.revature.services.*;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.revature.models.*;
 
-public class ManagerServlet extends HttpServlet {
+public class ManagerSelectServlet extends HttpServlet {
 	private ReimbursementService reimbursementService = new ReimbursementService();
 	private UserServices userService = new UserServices();
 	
 	ObjectMapper om = new ObjectMapper();
+	List<Reimbursement> ticketList = null;
 	
 	
 	@Override
@@ -43,9 +44,9 @@ public class ManagerServlet extends HttpServlet {
 			}
 		} 
 		
-		List<Reimbursement> employeeList = reimbursementService.getAllTickets();
+		ticketList = reimbursementService.getAllTickets();
 		
-		om.writeValue(resp.getWriter(), employeeList);
+		om.writeValue(resp.getWriter(), ticketList);
 		resp.setStatus(200);
 	}
 }

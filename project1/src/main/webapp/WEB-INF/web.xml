@@ -36,8 +36,17 @@
 	</servlet>
 	
 	<servlet>
-		<servlet-name>ManagerServlet</servlet-name>
-		<servlet-class>com.revature.servlets.ManagerServlet</servlet-class>
+		<servlet-name>ManagerSelectServlet</servlet-name>
+		<servlet-class>com.revature.servlets.ManagerSelectServlet</servlet-class>
+		<init-param>
+			<param-name>userid</param-name>
+			<param-value>userid</param-value>
+		</init-param>
+	</servlet>
+	
+	<servlet>
+		<servlet-name>ManagerResolveServlet</servlet-name>
+		<servlet-class>com.revature.servlets.ManagerResolveServlet</servlet-class>
 		<init-param>
 			<param-name>userid</param-name>
 			<param-value>userid</param-value>
@@ -60,8 +69,13 @@
     </servlet-mapping>
     
     <servlet-mapping>
-    	<servlet-name>ManagerServlet</servlet-name>
-    	<url-pattern>/manage</url-pattern>
+    	<servlet-name>ManagerSelectServlet</servlet-name>
+    	<url-pattern>/manager</url-pattern>
+    </servlet-mapping>
+    
+    <servlet-mapping>
+    	<servlet-name>ManagerResolveServlet</servlet-name>
+    	<url-pattern>/resolve/*</url-pattern>
     </servlet-mapping>
 
     <welcome-file-list>
