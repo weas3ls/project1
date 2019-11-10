@@ -1,6 +1,4 @@
-<div class="col-12 col-md-7">
-    <button mdbBtn color="dark" outline="true" rounded="true" type="button" class="px-2 mt-4" mdbWavesEffect data-toggle="modal" data-target="#create-new-request-modal" (click)="frame.show()"><mdb-icon fas icon="pencil-alt" size="lg"></mdb-icon> Create New Request</button>
-</div>
+<button mdbBtn color="pink" outline="true" rounded="true" type="button" class="px-2 m-0" mdbWavesEffect data-toggle="modal" data-target="#create-new-request-modal" (click)="frame.show()"><mdb-icon fas icon="pencil-alt" size="lg"></mdb-icon> Create New Request</button>
 
 <div mdbModal #frame="mdbModal" class="modal fade top" id="#create-new-request-modal" tabindex="-1" role="dialog" aria-labelledby="createNewRequestModal" aria-hidden="true">
     <div class="modal-dialog form-dark" role="document">
@@ -14,7 +12,7 @@
                             </h3>
                         </div>
                         <div class="col-12">
-                            <p class="indigo-text my-4 font-weight-bold text-center">Please fill in all the fields!</p>
+                            <p class="pink-text my-4 font-weight-bold text-center">Please fill in all the fields!</p>
                         </div>
                     </div>
                     <button type="button" class="close white-text" data-dismiss="modal" aria-label="Close" (click)="frame.hide()">
@@ -27,19 +25,19 @@
                             <div class="col-12">
                                 <label for="reimb_type">Select reimbursement type</label>
                                 <div class="btn-group mb-4">
-                                    <label mdbBtn color="indigo" rounded="true" size="sm" [(ngModel)]="reimb_type" name="reimb_type" mdbRadio="1" mdbWavesEffect>
+                                    <label mdbBtn color="pink" rounded="true" size="sm" [(ngModel)]="reimb_type" name="reimb_type" mdbRadio="1" mdbWavesEffect>
                                         Lodging
                                         <mdb-icon fas icon="hotel" class="mx-auto" size="lg"></mdb-icon>
                                     </label>
-                                    <label mdbBtn color="indigo" rounded="true" size="sm" [(ngModel)]="reimb_type" name="reimb_type" mdbRadio="2" mdbWavesEffect>
+                                    <label mdbBtn color="pink" rounded="true" size="sm" [(ngModel)]="reimb_type" name="reimb_type" mdbRadio="2" mdbWavesEffect>
                                         Travel
                                         <mdb-icon fas icon="plane" class="mx-auto" size="lg"></mdb-icon>
                                     </label>
-                                    <label mdbBtn color="indigo" rounded="true" size="sm" [(ngModel)]="reimb_type" name="reimb_type" mdbRadio="3" mdbWavesEffect>
+                                    <label mdbBtn color="pink" rounded="true" size="sm" [(ngModel)]="reimb_type" name="reimb_type" mdbRadio="3" mdbWavesEffect>
                                         Food
                                         <mdb-icon fas icon="utensils" class="mx-auto" size="lg"></mdb-icon>
                                     </label>
-                                    <label mdbBtn color="indigo" rounded="true" size="sm" [(ngModel)]="reimb_type" name="reimb_type" mdbRadio="4" mdbWavesEffect>
+                                    <label mdbBtn color="pink" rounded="true" size="sm" [(ngModel)]="reimb_type" name="reimb_type" mdbRadio="4" mdbWavesEffect>
                                         Other
                                         <mdb-icon fas icon="ellipsis-h" class="mx-auto" size="lg"></mdb-icon>
                                     </label>
@@ -49,7 +47,7 @@
                                 <label class="mb-0 ml-3" for="reimb_amount">Amount</label>
                                 <div class="md-form input-group">
                                     <div class="input-group-prepend">
-                                        <span class="input-group-text md-addon indigo lighten-2" id="material-addon1">
+                                        <span class="input-group-text md-addon pink lighten-2" id="material-addon1">
                                             <mdb-icon fas icon="dollar-sign"></mdb-icon>
                                         </span>
                                     </div>
@@ -64,7 +62,7 @@
                             </div>
                             <div class="col-12">
                                 <div class="file-field md-form">
-                                    <div mdbBtn floating="true" size="md" color="indigo" class="ml-0" mdbWavesEffect>
+                                    <div mdbBtn floating="true" size="md" color="pink" class="ml-0" mdbWavesEffect>
                                         <mdb-icon fas icon="cloud-upload-alt" aria-hidden="true"></mdb-icon>
                                         <input type="file" mdbFileSelect (uploadOutput)="onUploadOutput($event)" [uploadInput]="uploadInput">
                                     </div>
@@ -79,7 +77,7 @@
                 <div class="modal-footer w-100 mt-3">
                     <div class="row">
                         <div class="col-12 text-right">
-                            <button type="submit" mdbBtn color="indigo" mdbWavesEffect>Create Request</button>
+                            <button type="submit" mdbBtn color="pink" mdbWavesEffect>Create Request</button>
                         </div>
                     </div>
                 </div>

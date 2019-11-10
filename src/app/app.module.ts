@@ -1,4 +1,4 @@
-import { LoginService } from './services/login.service';
+import { UserGuardService } from './services/user-guard/user-guard.service';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
@@ -15,6 +15,8 @@ import { RequestsComponent } from './components/requests/requests.component';
 import { NewRequestComponent } from './components/new-request/new-request.component';
 import { RequestDetailComponent } from './components/request-detail/request-detail.component';
 import { ErsIdPipe } from './pipes/ers-id.pipe';
+import { AllRequestsComponent } from './components/all-requests/all-requests.component';
+import { LoginService } from './services/login/login.service';
 
 @NgModule({
     declarations: [
@@ -25,7 +27,8 @@ import { ErsIdPipe } from './pipes/ers-id.pipe';
         RequestsComponent,
         NewRequestComponent,
         RequestDetailComponent,
-        ErsIdPipe
+        ErsIdPipe,
+        AllRequestsComponent
     ],
     imports: [
         BrowserModule,
@@ -38,6 +41,7 @@ import { ErsIdPipe } from './pipes/ers-id.pipe';
     ],
     providers: [
         LoginService,
+        UserGuardService,
         MDBSpinningPreloader
     ],
     bootstrap: [AppComponent, HeaderComponent, LoginComponent, ProfileComponent, RequestsComponent, NewRequestComponent]

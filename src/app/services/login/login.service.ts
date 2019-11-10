@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 import { Subject, Observable } from 'rxjs';
-import { User } from '../components/models/user';
+import { User } from '../../components/models/user';
 import { DomElementSchemaRegistry } from '@angular/compiler';
 
 @Injectable({
@@ -13,6 +13,7 @@ export class LoginService {
 
     currentlyLoggedIn = false;
     loggedInUser: User;
+    $userData: any;
 
     constructor(private router: Router, private httpClient: HttpClient) { }
 
@@ -27,6 +28,7 @@ export class LoginService {
                 id: user['id'],
                 firstName: user['firstName'],
                 email: user['email'],
+                accountType: user['roleId'],
                 currentlyLoggedIn: true
             }
             return this.loggedInUser;

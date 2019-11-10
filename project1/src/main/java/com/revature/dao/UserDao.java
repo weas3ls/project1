@@ -146,4 +146,24 @@ public class UserDao {
         user.setPasswordSalt(passwordSalt);
         return user;
     }
+
+	public User getUserById(int id) {
+		try (Connection conn = ConnectionUtil.getConnection()) {
+			String sql = "SELECT * FROM ers_users WHERE ers_users_id = ?;";
+			PreparedStatement statement = conn.prepareStatement(sql);
+			statement.setInt(1, id);
+			ResultSet rs = statement.executeQuery();
+			if (rs.next()) {
+				User user = extractUser(rs);
+				return user;
+			} else {
+				return null;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
+
+
 }

@@ -2,8 +2,7 @@ import { User } from './../models/User';
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 
-import { LoginService } from 'src/app/services/login.service';
-import { Subscription } from 'rxjs';
+import { LoginService } from 'src/app/services/login/login.service';
 
 @Component({
     selector: 'app-login',

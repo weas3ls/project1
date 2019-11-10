@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
 import { User } from './../models/User';
-import { LoginService } from './../../services/login.service';
+import { LoginService } from '../../services/login/login.service';
 
 @Component({
     selector: 'app-profile',
@@ -9,7 +9,7 @@ import { LoginService } from './../../services/login.service';
     styleUrls: ['./profile.component.scss']
 })
 export class ProfileComponent implements OnInit {
-    currentlyLoggedIn = true;
+    currentlyLoggedIn = false;
     loggedInUser: User;
     userFirstName;
     selectedRequest: Request;
@@ -22,8 +22,6 @@ export class ProfileComponent implements OnInit {
             this.loggedInUser = this.loginService.loggedInUser;
             this.userFirstName = this.loggedInUser.firstName;
             this.currentlyLoggedIn = this.loggedInUser.currentlyLoggedIn;
-        } else {
-            // this.currentlyLoggedIn = false;
         }
     }
 

@@ -1,12 +1,12 @@
-import { Component, OnInit, ViewChild, HostListener, ChangeDetectorRef } from '@angular/core';
-import { MdbTableDirective, MdbTablePaginationComponent } from 'ng-uikit-pro-standard';
+import { Component, OnInit, ViewChild, ChangeDetectorRef, HostListener } from '@angular/core';
+import { MdbTablePaginationComponent, MdbTableDirective } from 'ng-uikit-pro-standard';
 
 @Component({
-    selector: 'app-requests',
-    templateUrl: './requests.component.html',
-    styleUrls: ['./requests.component.scss']
+  selector: 'app-all-requests',
+  templateUrl: './all-requests.component.html',
+  styleUrls: ['./all-requests.component.scss']
 })
-export class RequestsComponent implements OnInit {
+export class AllRequestsComponent implements OnInit {
     @ViewChild(MdbTablePaginationComponent, { static: true }) mdbTablePagination: MdbTablePaginationComponent;
     @ViewChild(MdbTableDirective, { static: true }) mdbTable: MdbTableDirective
     elements: any = [];
@@ -74,4 +74,5 @@ export class RequestsComponent implements OnInit {
             this.mdbTable.setDataSource(prev);
         }
     }
+
 }

@@ -5,7 +5,6 @@ import java.util.List;
 
 import com.revature.dao.ReimbursementDao;
 import com.revature.models.Reimbursement;
-import com.revature.models.User;
 
 public class ReimbursementService {
     ReimbursementDao reimbursementDao = new ReimbursementDao();
@@ -18,8 +17,8 @@ public class ReimbursementService {
      * this function.
      * 
      */
-    public List<Reimbursement> getUserTickets(User user) {
-        List<Reimbursement> userTickets = reimbursementDao.getUserReimbursements(user.getId());
+    public List<Reimbursement> getUserTickets(int id) {
+        List<Reimbursement> userTickets = reimbursementDao.getUserReimbursements(id);
         return userTickets;
 
         // int userRole = user.getRoleId();
@@ -80,10 +79,9 @@ public class ReimbursementService {
     }
 
     /**
-     * REQUIRED: Valid remibursement ID integer
-     * MODIFIES: Nothing
-     * EFFECTS: Returns a reimbursement object containing information from the SQL database or a null pointer reference
-     * depending on the validity of the given integer
+     * REQUIRED: Valid remibursement ID integer MODIFIES: Nothing EFFECTS: Returns a
+     * reimbursement object containing information from the SQL database or a null
+     * pointer reference depending on the validity of the given integer
      */
     public Reimbursement getTicketById(int ticketId) {
         Reimbursement ticket = reimbursementDao.getTicketById(ticketId);
@@ -95,5 +93,10 @@ public class ReimbursementService {
             System.out.println("Ticket not found.");
             return null;
         }
+    }
+
+    public List<Reimbursement> getAllTickets() {
+        List<Reimbursement> tickets = reimbursementDao.getAllReimbursements();
+        return tickets;
     }
 }
