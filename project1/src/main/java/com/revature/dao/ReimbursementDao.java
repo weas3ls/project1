@@ -113,7 +113,7 @@ public class ReimbursementDao {
      * REQUIRED: Valid Reimbursement reference MODIFIES: ers_reimbursements EFFECTS:
      * Adds reimbursement ticket to the ers_reimbursement table in the database.
      */
-    public void addTicket(Reimbursement reimbursement) {
+    public boolean addTicket(Reimbursement reimbursement) {
         try (Connection conn = ConnectionUtil.getConnection()) {
             String sql = "INSERT INTO ers_reimbursement (reimb_amount, reimb_description, reimb_author, reimb_resolver, reimb_status_id, reimb_type_id)"
                     + "VALUES (?, ?, ?, null, ?, ?) RETURNING reimb_id;";
@@ -131,11 +131,12 @@ public class ReimbursementDao {
             }
 
             System.out.println("Reimbursement has been requested.");
+            return true;
 
         } catch (SQLException e) {
             e.printStackTrace();
             System.out.println("SQLException in ReimbursementDao.addTicket method.");
-            return;
+            return false;
         }
     }
 
