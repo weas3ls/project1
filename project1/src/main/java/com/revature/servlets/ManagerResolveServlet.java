@@ -22,15 +22,22 @@ public class ManagerResolveServlet extends HttpServlet {
     UserServices userService = new UserServices();
 
     @Override
-    protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        resp.setHeader("Access-Control-Allow-Origin", "*");
+        resp.setHeader("Access-Control-Allow-Headers", "content-type");
+
+        super.service(req, resp);
+    }
+
+    @Override
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
         // String info = req.getPathInfo();
 
-        HttpSession session = req.getSession(false);
-        Integer userId = null;
-        if (session != null) {
-            userId = Integer.valueOf((String) session.getAttribute("userid").toString());
-        }
+//        HttpSession session = req.getSession(false);
+//        if (session != null) {
+//            userId = Integer.valueOf((String) session.getAttribute("userid").toString());
+//        }
 
         // Obtains the reimbursement JSON object that contains the status ID of ticket
         // as well as the ticket ID itself
@@ -38,16 +45,18 @@ public class ManagerResolveServlet extends HttpServlet {
 
         Reimbursement resolvedReimbursement = reimbursementService.getTicketById(jsonTicket.getId());
 
-        int statusId = jsonTicket.getStatus_id();
+        int statusId = jsonTicket.getstatus();
+        
+        int userId = jsonTicket.getResolver_id();
 
-        User user = userService.getUserById(userId);
+//        User user = userService.getUserById(userId);
 
         // Checks to see if user is manager. If not, then returns 403 status
-        if (user.getRoleId() != 1) {
-            resp.setStatus(403);
-            resp.getWriter().write("You are not authorized to access this page.");
-            return;
-        }
+//        if (user.getRoleId() != 1) {
+//            resp.setStatus(403);
+//            resp.getWriter().write("You are not authorized to access this page.");
+//            return;
+//        }
 
         // Checks to see if the manager is not approving their own status
         if (userId != resolvedReimbursement.getRequestee_id()) {
@@ -56,7 +65,7 @@ public class ManagerResolveServlet extends HttpServlet {
             resp.getWriter().write("Ticket successfully resolved!");
         } else {
             resp.setStatus(403);
-            resp.getWriter().write("Manager cannot approve of their own tickets.");
+            resp.getWriter().write("Manager cannot approve their own tickets.");
             return;
         }
 

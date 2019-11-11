@@ -51,12 +51,12 @@
                                             <mdb-icon fas icon="dollar-sign"></mdb-icon>
                                         </span>
                                     </div>
-                                    <input type="number" id="reimb_amount" name="reimb_amount" class="form-control" placeholder="Amount" aria-label="Amount" aria-describedby="material-addon1">
+                                    <input type="number" id="reimb_amount" [(ngModel)]="reimb_amount" name="reimb_amount" class="form-control" placeholder="Amount" aria-label="Amount" aria-describedby="material-addon1">
                                 </div>
                             </div>
                             <div class="col-12">
                                 <div class="md-form">
-                                    <textarea type="text" id="reimb_description" name="reimb_description" class="md-textarea md-textarea-auto form-control" mdbInput></textarea>
+                                    <textarea type="text" id="reimb_description" [(ngModel)]="reimb_description" name="reimb_description" class="md-textarea md-textarea-auto form-control" mdbInput></textarea>
                                     <label for="reimb_description" class="white-text">Description</label>
                                 </div>
                             </div>
@@ -64,7 +64,7 @@
                                 <div class="file-field md-form">
                                     <div mdbBtn floating="true" size="md" color="pink" class="ml-0" mdbWavesEffect>
                                         <mdb-icon fas icon="cloud-upload-alt" aria-hidden="true"></mdb-icon>
-                                        <input type="file" mdbFileSelect (uploadOutput)="onUploadOutput($event)" [uploadInput]="uploadInput">
+                                        <input type="file" mdbFileSelect (uploadOutput)="onUploadOutput($event)" [(ngModel)]="reimb_receipt" [uploadInput]="uploadInput">
                                     </div>
                                     <div class="file-path-wrapper mt-3">
                                         <input class="file-path" type="text" placeholder="Upload your file" name="reimb_receipt" [value]="showFiles()">
@@ -77,7 +77,7 @@
                 <div class="modal-footer w-100 mt-3">
                     <div class="row">
                         <div class="col-12 text-right">
-                            <button type="submit" mdbBtn color="pink" mdbWavesEffect>Create Request</button>
+                            <button type="submit" mdbBtn color="pink" mdbWavesEffect (click)="submit()">Create Request</button>
                         </div>
                     </div>
                 </div>

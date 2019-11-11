@@ -7,10 +7,10 @@
     <servlet>
         <servlet-name>LoginServlet</servlet-name>
         <servlet-class>com.revature.servlets.LoginServlet</servlet-class>
-        <init-param>
+        <!-- <init-param>
             <param-name>userid</param-name>
             <param-value>userid</param-value>
-        </init-param>
+        </init-param> -->
         <load-on-startup>1</load-on-startup>
     </servlet>
 
@@ -18,46 +18,46 @@
     <servlet>
         <servlet-name>ProfileServlet</servlet-name>
         <servlet-class>com.revature.servlets.ProfileServlet</servlet-class>
-        <init-param>
+        <!-- <init-param>
             <param-name>userid</param-name>
             <param-value>userid</param-value>
-        </init-param>
+        </init-param> -->
     </servlet>
 
     <servlet>
         <servlet-name>SelectServlet</servlet-name>
         <servlet-class>com.revature.servlets.SelectServlet</servlet-class>
-        <init-param>
+        <!-- <init-param>
             <param-name>userid</param-name>
             <param-value>userid</param-value>
-        </init-param>
+        </init-param> -->
     </servlet>
 
     <servlet>
         <servlet-name>ManagerSelectServlet</servlet-name>
         <servlet-class>com.revature.servlets.ManagerSelectServlet</servlet-class>
-        <init-param>
+        <!-- <init-param>
             <param-name>userid</param-name>
             <param-value>userid</param-value>
-        </init-param>
+        </init-param> -->
     </servlet>
 
     <servlet>
         <servlet-name>ManagerResolveServlet</servlet-name>
         <servlet-class>com.revature.servlets.ManagerResolveServlet</servlet-class>
-        <init-param>
+        <!-- <init-param>
             <param-name>userid</param-name>
             <param-value>userid</param-value>
-        </init-param>
+        </init-param> -->
     </servlet>
 
     <servlet>
         <servlet-name>NewRequestServlet</servlet-name>
         <servlet-class>com.revature.servlets.NewRequestServlet</servlet-class>
-        <init-param>
+        <!-- <init-param>
             <param-name>userid</param-name>
             <param-value>userid</param-value>
-        </init-param>
+        </init-param> -->
     </servlet>
 
     <servlet-mapping>
@@ -82,7 +82,7 @@
 
     <servlet-mapping>
         <servlet-name>ManagerResolveServlet</servlet-name>
-        <url-pattern>/resolve/*</url-pattern>
+        <url-pattern>/resolve</url-pattern>
     </servlet-mapping>
 
     <servlet-mapping>

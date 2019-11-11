@@ -10,7 +10,7 @@
                         <p class="h5">Expense Reimbursement ID</p>
                     </div>
                     <div class="col-6 text-left">
-                        <span class="h6 text-muted">{{ 1 | ersId }}</span>
+                        <span class="h6 text-muted">{{ request.id | ersId }}</span>
                     </div>
                 </div>
                 <div class="row my-2">
@@ -18,7 +18,7 @@
                         <p class="h5">Type</p>
                     </div>
                     <div class="col-6 text-left">
-                        <span class="h6 text-muted">Lodging</span>
+                        <span class="h6 text-muted">{{ request.type }}</span>
                     </div>
                 </div>
                 <div class="row my-2">
@@ -26,7 +26,7 @@
                         <p class="h5">Status</p>
                     </div>
                     <div class="col-6 text-left">
-                        <span class="h6 text-muted">Open</span>
+                        <span class="h6 text-muted">{{ request.status }}</span>
                     </div>
                 </div>
             </div>
@@ -36,7 +36,7 @@
                         <p class="h5">Submitted Date</p>
                     </div>
                     <div class="col-6 text-left">
-                        <span class="h6 text-muted">February 1, 2019</span>
+                        <span class="h6 text-muted">{{ request.date_submitted | date : 'longDate' }}</span>
                     </div>
                 </div>
                 <div class="row my-2">
@@ -44,7 +44,17 @@
                         <p class="h5">Resolved Date</p>
                     </div>
                     <div class="col-6 text-left">
-                        <span class="h6 text-muted">Still Open</span>
+                        <span class="h6 text-muted">{{ (request.date_resolved | date : 'longDate') || "Still Open" }}</span>
+                    </div>
+                </div>
+                <div class="row" *ngIf="request.status == 'Pending'">
+                    <div class="col-12 col-md-10 mx-auto">
+                        <button mdbBtn color="success" rounded="true" size="sm" type="button" class="my-0" mdbWavesEffect (click)="approveRequest(request.id)">
+                            <mdb-icon fas icon="check"></mdb-icon> Approve
+                        </button>
+                        <button mdbBtn color="danger" rounded="true" size="sm" type="button" class="my-0" mdbWavesEffect (click)="denyRequest(request.id)">
+                            <mdb-icon fas icon="times"></mdb-icon> Deny
+                        </button>
                     </div>
                 </div>
             </div>
@@ -60,11 +70,9 @@
                 </thead>
                 <tbody>
                     <tr mdbTableCol>
-                        <th scope="row"><span>February 1, 2019</span></th>
-                        <td class="text-left"><span>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Assumenda
-                                impedit, corrupti nam, sequi minima et, eveniet culpa obcaecati ex non quam magni
-                                nesciunt delectus itaque quod nisi ad quisquam tempore!</span></td>
-                        <td><span>$357</span></td>
+                        <th scope="row"><span>{{ request.date_submitted | date : 'longDate' }}</span></th>
+                        <td class="text-left"><span>{{ request.description }}</span></td>
+                        <td><span>${{ request.amount }}</span></td>
                     </tr>
                 </tbody>
             </table>

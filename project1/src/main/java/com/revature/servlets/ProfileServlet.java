@@ -45,25 +45,38 @@ public class ProfileServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        HttpSession session = req.getSession(false);
+        HttpSession session = req.getSession();
 
-        if (session == null) {
-            System.out.println("param not read");
-            resp.setStatus(400);
-            return;
-        }
+        String info = req.getPathInfo();
 
-        System.out.println(session.getAttribute("userid"));
+        String[] parts = info.split("/");
 
-        System.out.print("Param passed into profileservlet: ");
-        Integer userId = Integer.valueOf((String) session.getAttribute("userid").toString());
-        System.out.println(userId);
+        System.out.println("Info in ProfileServlet: " + parts[1]);
 
-        List<Reimbursement> userReimbursements = reimbursementServices.getUserTickets(userId);
+        // if (parts[1] != session.getAttribute("userid")) {
+        // resp.setStatus(403);
+        // resp.getWriter().write("Do not have permission to access this profile");
+        // return;
+        // }
+
+        // if (session == null) {
+        // System.out.println("param not read");
+        // resp.setStatus(400);
+        // return;
+        // }
+
+        // System.out.println(session.getAttribute("userid"));
+
+        // System.out.print("Param passed into profileservlet: ");
+        // Integer userId = Integer.valueOf((String)
+        // session.getAttribute("userid").toString());
+        // System.out.println(userId);
+
+        List<Reimbursement> userReimbursements = reimbursementServices.getUserTickets(Integer.parseInt(parts[1]));
         // System.out.println(userReimbursements.size());
         // System.out.println(userReimbursements);
 
-        session.setAttribute("userid", session.getAttribute("userid").toString());
+        session.setAttribute("userid", parts[1]);
         om.writeValue(resp.getWriter(), userReimbursements);
         resp.setStatus(200);
 

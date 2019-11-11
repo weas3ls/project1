@@ -19,16 +19,25 @@ public class SelectServlet extends HttpServlet {
     ReimbursementService reimbursementService = new ReimbursementService();
 
     @Override
+    protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        resp.setHeader("Access-Control-Allow-Origin", "*");
+        resp.setHeader("Access-Control-Allow-Headers", "content-type");
+
+        super.service(req, resp);
+    }
+
+    @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
         String info = req.getPathInfo();
 
         HttpSession session = req.getSession(false);
-        Integer userId = null;
+        System.out.println(session);
+        Integer userId = 0;
         if (session != null) {
             userId = Integer.valueOf((String) session.getAttribute("userid").toString());
         }
-
+        System.out.println("user id " + userId);
         if (info == null) {
             resp.setStatus(400);
             return;
@@ -54,13 +63,13 @@ public class SelectServlet extends HttpServlet {
 
         Reimbursement selectedReimbursement = reimbursementService.getTicketById(id);
 
-        if (selectedReimbursement.getRequestee_id() != userId) {
-            resp.setStatus(404);
-            resp.getWriter().write("Failed to retrieve reimbursement.");
-        } else {
-            om.writeValue(resp.getWriter(), selectedReimbursement);
-            resp.setStatus(200);
-        }
+        // if (selectedReimbursement.getRequestee_id() != userId) {
+        // resp.setStatus(404);
+        // resp.getWriter().write("Failed to retrieve reimbursement.");
+        // } else {
+        // }
+        om.writeValue(resp.getWriter(), selectedReimbursement);
+        resp.setStatus(200);
 
     }
 }

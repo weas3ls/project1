@@ -1,55 +1,74 @@
 import { Component, OnInit, ViewChild, ChangeDetectorRef, HostListener } from '@angular/core';
 import { MdbTablePaginationComponent, MdbTableDirective } from 'ng-uikit-pro-standard';
 
+import { Reimbursement } from '../models/Reimbursement';
+import { User } from '../models/User';
+
+import { AllRequestsService } from 'src/app/services/all-requests/all-requests.service';
+import { LoginService } from 'src/app/services/login/login.service';
+
 @Component({
-  selector: 'app-all-requests',
-  templateUrl: './all-requests.component.html',
-  styleUrls: ['./all-requests.component.scss']
+    selector: 'app-all-requests',
+    templateUrl: './all-requests.component.html',
+    styleUrls: ['./all-requests.component.scss']
 })
 export class AllRequestsComponent implements OnInit {
     @ViewChild(MdbTablePaginationComponent, { static: true }) mdbTablePagination: MdbTablePaginationComponent;
     @ViewChild(MdbTableDirective, { static: true }) mdbTable: MdbTableDirective
-    elements: any = [];
+    
+    reimbursements: Array<Reimbursement>;
     previous: any = [];
-
+    loggedInUser: User;
     searchText: string = '';
 
-    constructor(private cdRef: ChangeDetectorRef) { }
+    constructor(
+        private cdRef: ChangeDetectorRef,
+        private loginService: LoginService,
+        private allRequestsService: AllRequestsService
+    ) { }
 
     @HostListener('input') oninput() {
         this.searchItems();
     }
 
-    ngOnInit() {
-        for (let i = 1; i <= 23; i++) {
-            if (i % 3 == 1) {
-                status = 'Pending';
-            } else if (i % 3 == 2) {
-                status = 'Approved';
-            } else {
-                status = 'Denied';
+    async ngOnInit() {
+        this.loggedInUser = await this.loginService.getUser();
+        this.reimbursements = await this.allRequestsService.getReimbursements();
+        this.reimbursements.forEach(reimbursement => {
+            switch ('' + reimbursement.status) {
+                case '1':
+                    reimbursement.status = 'Pending'
+                    break;
+                case '2':
+                    reimbursement.status = 'Approved'
+                    break;
+                case '3':
+                    reimbursement.status = 'Denied'
+                    break;
+                default:
+                    break;
             }
-            if (i % 4 == 1) {
-                var type = 'Food';
-            } else if (i % 4 == 2) {
-                var type = 'Travel';
-            } else if (i % 4 == 3) {
-                var type = 'Lodging';
-            } else {
-                var type = 'Other';
-            }
-            this.elements.push({
-                reimb_id: i,
-                reimb_amount: i * 37,
-                reimb_submitted: '2019-02-' + i,
-                reimb_resolved: '2019-05-' + i,
-                reimb_status_id: status,
-                reimb_type_id: type
-            });
-        }
 
-        this.mdbTable.setDataSource(this.elements);
-        this.elements = this.mdbTable.getDataSource();
+            switch ('' + reimbursement.type) {
+                case '1':
+                    reimbursement.type = 'Lodging'
+                    break;
+                case '2':
+                    reimbursement.type = 'Travel'
+                    break;
+                case '3':
+                    reimbursement.type = 'Food'
+                    break;
+                case '4':
+                    reimbursement.type = 'Other'
+                    break;
+                default:
+                    break;
+            }
+        });
+
+        this.mdbTable.setDataSource(this.reimbursements);
+        this.reimbursements = this.mdbTable.getDataSource();
         this.previous = this.mdbTable.getDataSource();
     }
 
@@ -66,11 +85,11 @@ export class AllRequestsComponent implements OnInit {
 
         if (!this.searchText) {
             this.mdbTable.setDataSource(this.previous);
-            this.elements = this.mdbTable.getDataSource();
+            this.reimbursements = this.mdbTable.getDataSource();
         }
 
         if (this.searchText) {
-            this.elements = this.mdbTable.searchLocalDataBy(this.searchText);
+            this.reimbursements = this.mdbTable.searchLocalDataBy(this.searchText);
             this.mdbTable.setDataSource(prev);
         }
     }

@@ -1,5 +1,6 @@
 package com.revature.servlets;
 
+import java.io.File;
 import java.io.IOException;
 
 import javax.servlet.ServletException;
@@ -17,21 +18,36 @@ public class NewRequestServlet extends HttpServlet {
 
     ObjectMapper om = new ObjectMapper();
     ReimbursementService reimbursementService = new ReimbursementService();
+    
+    @Override
+    protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        resp.setHeader("Access-Control-Allow-Origin", "*");
+        resp.setHeader("Access-Control-Allow-Headers", "content-type");
+
+    	super.service(req, resp);
+    }
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         Reimbursement ticketEntry = om.readValue(req.getReader(), Reimbursement.class);
 
-        HttpSession session = req.getSession(false);
+//        HttpSession session = req.getSession(false);
+//        System.out.println(session);
+//
+//        if (session == null) {
+//            resp.setStatus(400);
+//            resp.getWriter().write("Error 400: Session does not exist. Exiting...");
+//        }
+        
 
-        if (session == null) {
-            resp.setStatus(400);
-            resp.getWriter().write("Error 400: Session does not exist. Exiting...");
-        }
-
-        int userId = Integer.parseInt(session.getAttribute("userid").toString());
-        ticketEntry.setRequestee_id(userId);
-
+//        System.out.println(session.getAttribute("userid"));
+        
+//        int userId = Integer.parseInt(session.getAttribute("userid").toString());
+//        ticketEntry.setRequestee_id(userId);
+    	System.out.println(ticketEntry);
+    	
+    	File file = new File(ticketEntry.getReimb_receipt());
+    	
         if (reimbursementService.insertTicketRequest(ticketEntry)) {
             resp.setStatus(200);
             resp.getWriter().write("Ticket request successfully submitted!");

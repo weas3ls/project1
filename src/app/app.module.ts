@@ -21,7 +21,7 @@ import { AllRequestsComponent } from './components/all-requests/all-requests.com
 import { LoginService } from './services/login/login.service';
 import { UserGuardService } from './services/user-guard/user-guard.service';
 import { RequestDetailService } from './services/request-detail/request-detail.service';
-import { ProfileService } from './services/profile/profile.service';
+import { RequestsService } from './services/requests/requests.service';
 
 import { ErsIdPipe } from './pipes/ers-id.pipe';
 
@@ -50,7 +50,7 @@ import { ErsIdPipe } from './pipes/ers-id.pipe';
     providers: [
         LoginService,
         UserGuardService,
-        ProfileService,
+        RequestsService,
         RequestDetailService,
         MDBSpinningPreloader,
         {

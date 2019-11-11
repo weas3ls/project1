@@ -115,14 +115,15 @@ public class ReimbursementDao {
      */
     public boolean addTicket(Reimbursement reimbursement) {
         try (Connection conn = ConnectionUtil.getConnection()) {
-            String sql = "INSERT INTO ers_reimbursement (reimb_amount, reimb_description, reimb_author, reimb_resolver, reimb_status_id, reimb_type_id)"
-                    + "VALUES (?, ?, ?, null, ?, ?) RETURNING reimb_id;";
+            String sql = "INSERT INTO ers_reimbursement (reimb_amount, reimb_description, reimb_receipt, reimb_author, reimb_resolver, reimb_status_id, reimb_type_id)"
+                    + "VALUES (?, ?, ?, ?, null, ?, ?) RETURNING reimb_id;";
             PreparedStatement statement = conn.prepareStatement(sql);
             statement.setBigDecimal(1, reimbursement.getAmount());
             statement.setString(2, reimbursement.getDescription());
-            statement.setInt(3, reimbursement.getRequestee_id());
-            statement.setInt(4, reimbursement.getStatus_id());
-            statement.setInt(5, reimbursement.getType_id());
+            statement.setString(3, reimbursement.getReimb_receipt());
+            statement.setInt(4, reimbursement.getRequestee_id());
+            statement.setInt(5, reimbursement.getstatus());
+            statement.setInt(6, reimbursement.gettype());
 
             ResultSet rs = statement.executeQuery();
 
@@ -159,10 +160,11 @@ public class ReimbursementDao {
         Integer statusId = rs.getInt("reimb_status_id");
         Integer typeId = rs.getInt("reimb_type_id");
         String description = rs.getString("reimb_description");
+        String reimb_receipt = rs.getString("reimb_receipt");
         Date date_submitted = rs.getDate("reimb_submitted");
         Date date_resolved = rs.getDate("reimb_resolved");
 
-        Reimbursement reimbursement = new Reimbursement(amount, description, authorId, resolverId, statusId, typeId,
+        Reimbursement reimbursement = new Reimbursement(amount, description, reimb_receipt, authorId, resolverId, statusId, typeId,
                 date_submitted, date_resolved);
         reimbursement.setId(id);
         reimbursement.setResolver_id(resolverId);
@@ -182,7 +184,7 @@ public class ReimbursementDao {
 
             if (rs.next()) {
                 resolvedReimbursement.setResolver_id(rs.getInt("reimb_resolver"));
-                resolvedReimbursement.setStatus_id(rs.getInt("reimb_status_id"));
+                resolvedReimbursement.setstatus(rs.getInt("reimb_status_id"));
             }
         } catch (SQLException e) {
             e.printStackTrace();
