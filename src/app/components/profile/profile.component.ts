@@ -12,7 +12,7 @@ import { LoginService } from '../../services/login/login.service';
     styleUrls: ['./profile.component.scss']
 })
 export class ProfileComponent implements OnInit {
-    currentlyLoggedIn = true;
+    currentlyLoggedIn;
     loggedInUser: User;
     userFirstName;
     selectedRequest: Request;
@@ -24,12 +24,13 @@ export class ProfileComponent implements OnInit {
     ) { }
 
     async ngOnInit() {
-        this.loggedInUser = await this.loginService.loggedInUser;
+        this.loggedInUser = this.loginService.loggedInUser;
+        console.log(this.loggedInUser);
         if (this.loggedInUser) {
             this.loggedInUser = this.loginService.loggedInUser;
             this.userFirstName = this.loggedInUser.firstName;
             this.currentlyLoggedIn = this.loggedInUser.currentlyLoggedIn;
-            this.userReimbursements = await this.profileService.getUserReimbursements;
+            this.userReimbursements = this.profileService.getUserReimbursements;
         }
     }
 }

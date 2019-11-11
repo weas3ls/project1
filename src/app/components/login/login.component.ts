@@ -56,6 +56,7 @@ export class LoginComponent implements OnInit {
         if (this.user) {
             this.currentlyLoggedIn = this.user.currentlyLoggedIn;
             this.userFirstName = this.user.firstName;
+            this.router.navigate(['/']);
         } else {
             const options = { opacity: 1, progressBar: true, timeOut: 3000, closeButton: true, toastClass: 'pink' };
             this.toastrService.error('Login Failed!', 'Sorry!', options);
