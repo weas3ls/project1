@@ -1,5 +1,9 @@
 import { Component, OnInit, EventEmitter } from '@angular/core';
 import { UploadFile, UploadInput, UploadOutput, humanizeBytes } from 'ng-uikit-pro-standard';
+import { User } from '../models/User';
+import { NewRequestService } from 'src/app/services/new-request/new-request.service';
+import { LoginService } from 'src/app/services/login/login.service';
+import { Router } from '@angular/router';
 
 @Component({
     selector: 'app-new-request',
@@ -13,15 +17,28 @@ export class NewRequestComponent implements OnInit {
     uploadInput: EventEmitter<UploadInput>;
     humanizeBytes: Function;
     dragOver: boolean;
-    public reimb_type: number;
 
-    constructor() {
+    reimb_type;
+    reimb_amount;
+    reimb_description;
+    reimb_receipt;
+
+    currentlyLoggedIn: boolean = true;
+    loggedInUser: User;
+
+    constructor(
+        private newRequestService: NewRequestService,
+        private loginService: LoginService,
+        private router: Router,
+    ) {
         this.files = [];
         this.uploadInput = new EventEmitter<UploadInput>();
         this.humanizeBytes = humanizeBytes;
     }
 
     ngOnInit() {
+        this.loggedInUser = this.loginService.loggedInUser;
+        console.log(this.loggedInUser.id);
         this.optionsSelect = [
             { value: '1', label: 'Lodging' },
             { value: '2', label: 'Travel' },
@@ -75,5 +92,19 @@ export class NewRequestComponent implements OnInit {
             this.dragOver = false;
         }
         this.showFiles();
+    }
+
+    submit() {
+        const requestData = {
+            requestee_id: this.loggedInUser.id,
+            type: this.reimb_type,
+            amount: this.reimb_amount,
+            description: this.reimb_description,
+            status: 1,
+            reimb_receipt: `E:\\Revature\\Training\\Projects\\Project 01\\media\\${this.files[0].name}`
+        }
+        this.newRequestService.uploadTicket(requestData);
+        this.router.navigateByUrl('/profile');
+        location.reload();
     }
 }

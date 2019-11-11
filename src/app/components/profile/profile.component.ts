@@ -1,10 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 
 import { User } from './../models/User';
-import { Reimbursement } from '../models/Reimbursement';
-
-import { ProfileService } from './../../services/profile/profile.service';
 import { LoginService } from '../../services/login/login.service';
+import { Reimbursement } from '../models/Reimbursement';
 
 @Component({
     selector: 'app-profile',
@@ -12,25 +10,17 @@ import { LoginService } from '../../services/login/login.service';
     styleUrls: ['./profile.component.scss']
 })
 export class ProfileComponent implements OnInit {
-    currentlyLoggedIn;
+    currentlyLoggedIn: boolean;
     loggedInUser: User;
-    userFirstName;
-    selectedRequest: Request;
-    userReimbursements;
+    userFirstName: string;
 
-    constructor(
-        private loginService: LoginService,
-        private profileService: ProfileService
-    ) { }
+    constructor(private loginService: LoginService) { }
 
     async ngOnInit() {
         this.loggedInUser = this.loginService.loggedInUser;
-        console.log(this.loggedInUser);
         if (this.loggedInUser) {
-            this.loggedInUser = this.loginService.loggedInUser;
             this.userFirstName = this.loggedInUser.firstName;
             this.currentlyLoggedIn = this.loggedInUser.currentlyLoggedIn;
-            this.userReimbursements = this.profileService.getUserReimbursements;
         }
     }
 }

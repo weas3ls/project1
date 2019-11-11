@@ -17,7 +17,6 @@ public class LoginServlet extends HttpServlet {
 
     private ObjectMapper om = new ObjectMapper();
     UserServices userServices = new UserServices();
-    
 
     @Override
     public void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -25,9 +24,6 @@ public class LoginServlet extends HttpServlet {
         resp.setHeader("Access-Control-Allow-Origin", "*");
         resp.setHeader("Access-Control-Allow-Headers", "content-type");
 
-        HttpSession session = req.getSession();
-        session.invalidate();
-        
         super.service(req, resp);
 
     }
@@ -45,29 +41,18 @@ public class LoginServlet extends HttpServlet {
             userLoggedIn.setPassword("");
             userLoggedIn.setPasswordSalt("");
 
-            // this.getServletContext().setInitParameter("userid",
-            // String.valueOf(userLoggedIn.getId()));
-            // System.out.println("Context Param Value: " +
-            // this.getServletContext().getInitParameter("userid"));
+            HttpSession session = req.getSession();
+            resp.setStatus(200);
+            om.writeValue(resp.getWriter(), userLoggedIn);
+            System.out.println("Value of ID in LoginServlet: " + userLoggedIn.getId());
+
             // Forwards the servlet to the profile page. Profile should pickup the user ID
             // from the req object passed in this call, which
             // then its init method will set the context-param, thus giving us access to the
             // user id until logout is called
-            HttpSession session = req.getSession();
-            session.setAttribute("userid", Integer.valueOf(userLoggedIn.getId()));
-            
-//            req.setAttribute("userid", Integer.valueOf(userLoggedIn.getId()));
-            System.out.println(userLoggedIn.getId());
-            
-            System.out.println("Value of parameter session ID: " + session.getAttribute("userid"));
-            resp.setStatus(200);
-            om.writeValue(resp.getWriter(), userLoggedIn);
-            //req.getRequestDispatcher("/profile").forward(req, resp);
-            
-
-
+            session.setAttribute("userid", userLoggedIn.getId());
+            System.out.println("user id " + session.getAttribute("userid"));
         } else {
-        	
             resp.setStatus(401);
             resp.getWriter().write("Log in failed!");
         }

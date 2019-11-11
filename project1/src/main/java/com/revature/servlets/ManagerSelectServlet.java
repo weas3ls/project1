@@ -25,25 +25,33 @@ public class ManagerSelectServlet extends HttpServlet {
     List<Reimbursement> ticketList = null;
 
     @Override
+    protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        resp.setHeader("Access-Control-Allow-Origin", "*");
+        resp.setHeader("Access-Control-Allow-Headers", "content-type");
+
+        super.service(req, resp);
+    }
+
+    @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         HttpSession session = req.getSession(false);
-        if (session == null) {
-            resp.setStatus(400);
-            resp.getWriter().write("Session not found in manager tools.");
-            return;
-        }
-        int managerId = Integer.valueOf(session.getAttribute("userid").toString());
-        System.out.println("ManagerServlet managerId: " + managerId);
-        User isManager = userService.getUserById(managerId);
-        isManager.setPassword("");
-        isManager.setPasswordSalt("");
-        if (isManager != null) {
-            if (isManager.getRoleId() != 1) {
-                resp.setStatus(403);
-                resp.getWriter().write("Only manager has access to manager tools");
-                return;
-            }
-        }
+        // if (session == null) {
+        // resp.setStatus(400);
+        // resp.getWriter().write("Session not found in manager tools.");
+        // return;
+        // }
+        // int managerId = Integer.valueOf(session.getAttribute("userid").toString());
+        // System.out.println("ManagerServlet managerId: " + managerId);
+        // User isManager = userService.getUserById(managerId);
+        // isManager.setPassword("");
+        // isManager.setPasswordSalt("");
+        // if (isManager != null) {
+        // if (isManager.getRoleId() != 1) {
+        // resp.setStatus(403);
+        // resp.getWriter().write("Only manager has access to manager tools");
+        // return;
+        // }
+        // }
 
         ticketList = reimbursementService.getAllTickets();
 
