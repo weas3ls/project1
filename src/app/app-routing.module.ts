@@ -6,25 +6,30 @@ import { RequestDetailComponent } from './components/request-detail/request-deta
 import { ProfileComponent } from './components/profile/profile.component';
 import { NewRequestComponent } from './components/new-request/new-request.component';
 import { UserGuardService } from './services/user-guard/user-guard.service';
+import { LoginComponent } from './components/login/login.component';
 
 const routes: Routes = [{
     path: '',
-    redirectTo: '/profile',
+    redirectTo: '/login',
     pathMatch: 'full'
 }, {
+    path: 'login',
+    component: LoginComponent
+}, {
     path: 'new-request',
-    canActivate: [UserGuardService],
+    // canActivate: [UserGuardService],
     component: NewRequestComponent
 }, {
     path: 'profile',
+    // canActivate: [UserGuardService],
     component: ProfileComponent
 }, {
     path: 'request/:id',
-    canActivate: [UserGuardService],
+    // canActivate: [UserGuardService],
     component: RequestDetailComponent
 }, {
     path: 'all-requests',
-    canActivate: [UserGuardService],
+    // canActivate: [UserGuardService],
     component: AllRequestsComponent
 }];
 

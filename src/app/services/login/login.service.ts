@@ -12,7 +12,7 @@ import { DomElementSchemaRegistry } from '@angular/compiler';
 export class LoginService {
 
     currentlyLoggedIn = false;
-    loggedInUser: User;
+    loggedInUser: User = null;
 
     constructor(private httpClient: HttpClient) { }
 
@@ -20,7 +20,6 @@ export class LoginService {
 
         const url = 'http://localhost:11000/project1/login';
         const user = await this.httpClient.post(url, credentials).toPromise();
-
         if (user) {
             this.loggedInUser = {
                 id: user['id'],
@@ -29,9 +28,11 @@ export class LoginService {
                 accountType: user['roleId'],
                 currentlyLoggedIn: true
             }
-            return this.loggedInUser;
-        } else {
-            return null;
         }
+        return this.loggedInUser;
+    }
+
+    getUser() {
+        return this.loggedInUser;
     }
 }

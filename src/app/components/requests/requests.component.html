@@ -21,48 +21,48 @@
     <table id="submittedExpenseRequests" mdbTable #tableEl="mdbTable" class="mb-0" hover="true">
         <thead>
             <tr>
-                <th [mdbTableSort]="elements" sortBy="reimb_id">Reimbursement ID
+                <th [mdbTableSort]="reimbursements" sortBy="id">Reimbursement ID
                     <mdb-icon fas icon="sort"></mdb-icon>
                 </th>
-                <th [mdbTableSort]="elements" sortBy="reimb_type_id">Type
+                <th [mdbTableSort]="reimbursements" sortBy="type">Type
                     <mdb-icon fas icon="sort"></mdb-icon>
                 </th>
-                <th [mdbTableSort]="elements" sortBy="reimb_status_id">Status
+                <th [mdbTableSort]="reimbursements" sortBy="status">Status
                     <mdb-icon fas icon="sort"></mdb-icon>
                 </th>
-                <th [mdbTableSort]="elements" sortBy="reimb_amount">Amount
+                <th [mdbTableSort]="reimbursements" sortBy="amount">Amount
                     <mdb-icon fas icon="sort"></mdb-icon>
                 </th>
-                <th [mdbTableSort]="elements" sortBy="reimb_submitted">Date Submitted
+                <th [mdbTableSort]="reimbursements" sortBy="date_submitted">Date Submitted
                     <mdb-icon fas icon="sort"></mdb-icon>
                 </th>
-                <th [mdbTableSort]="elements" sortBy="reimb_resolved">Date Resolved
+                <th [mdbTableSort]="reimbursements" sortBy="date_resolved">Date Resolved
                     <mdb-icon fas icon="sort"></mdb-icon>
                 </th>
             </tr>
         </thead>
         <tbody>
-            <tr *ngFor="let el of elements; let i = index" routerLink="/request/{{ el.reimb_id }}" [ngStyle]="{'cursor': 'pointer'}">
+            <tr *ngFor="let reimbursement of reimbursements; let i = index" routerLink="/request/{{ reimbursement.id }}" [ngStyle]="{'cursor': 'pointer'}">
                 <th *ngIf="i+1 >= mdbTablePagination.firstItemIndex && i < mdbTablePagination.lastItemIndex" scope="row">
-                    {{ el.reimb_id | ersId }}</th>
+                    {{ reimbursement.id | ersId }}</th>
                 <td *ngIf="i+1 >= mdbTablePagination.firstItemIndex && i < mdbTablePagination.lastItemIndex">
-                    {{ el.reimb_type_id }}
+                    {{ reimbursement.type }}
                 </td>
                 <td *ngIf="i+1 >= mdbTablePagination.firstItemIndex && i < mdbTablePagination.lastItemIndex">
-                    {{ el.reimb_status_id }}
+                    {{ reimbursement.status }}
                 </td>
                 <td *ngIf="i+1 >= mdbTablePagination.firstItemIndex && i < mdbTablePagination.lastItemIndex">
-                    ${{ el.reimb_amount }}</td>
+                    ${{ reimbursement.amount }}</td>
                 <td *ngIf="i+1 >= mdbTablePagination.firstItemIndex && i < mdbTablePagination.lastItemIndex">
-                    {{ el.reimb_submitted | date : 'longDate' }}</td>
+                    {{ reimbursement.date_submitted | date : 'longDate' }}</td>
                 <td *ngIf="i+1 >= mdbTablePagination.firstItemIndex && i < mdbTablePagination.lastItemIndex">
-                    {{( el.reimb_resolved | date : 'longDate') || "Still open" }}</td>
+                    {{( reimbursement.date_resolved | date : 'longDate') || "Still open" }}</td>
             </tr>
         </tbody>
         <tfoot class="grey lighten-5 w-100">
             <tr>
                 <td colspan="6">
-                    <mdb-table-pagination [tableEl]="tableEl" [searchDataSource]="elements"></mdb-table-pagination>
+                    <mdb-table-pagination [tableEl]="tableEl" [searchDataSource]="reimbursements"></mdb-table-pagination>
                 </td>
             </tr>
         </tfoot>

@@ -9,9 +9,10 @@ public class Reimbursement {
     private BigDecimal amount;
     private String description;
     private int requestee_id;
+    private String reimb_receipt;
     private Integer resolver_id = null;
-    private int status_id;
-    private int type_id;
+    private int status;
+    private int type;
     private Date date_submitted;
     private Date date_resolved;
 
@@ -19,20 +20,35 @@ public class Reimbursement {
     public Reimbursement() {
     }
 
-    public Reimbursement(BigDecimal amount, String description, int requestee_id, int resolver_id, int status_id,
-            int type_id, Date date_submitted, Date date_resolved) {
+    public Reimbursement(BigDecimal amount, String description, String reimb_receipt, int requestee_id, int resolver_id, int status, int type,
+            Date date_submitted, Date date_resolved) {
         super();
         this.amount = amount;
         this.description = description;
+        this.reimb_receipt = reimb_receipt;
         this.requestee_id = requestee_id;
         this.resolver_id = resolver_id;
-        this.status_id = status_id;
-        this.type_id = type_id;
+        this.status = status;
+        this.type = type;
         this.date_resolved = date_resolved;
         this.date_submitted = date_submitted;
     }
 
     /**
+	 * @return the reimb_receipt
+	 */
+	public String getReimb_receipt() {
+		return reimb_receipt;
+	}
+
+	/**
+	 * @param reimb_receipt the reimb_receipt to set
+	 */
+	public void setReimb_receipt(String reimb_receipt) {
+		this.reimb_receipt = reimb_receipt;
+	}
+
+	/**
      * @return the description
      */
     public String getDescription() {
@@ -104,31 +120,31 @@ public class Reimbursement {
     }
 
     /**
-     * @return the status_id
+     * @return the status
      */
-    public int getStatus_id() {
-        return status_id;
+    public int getstatus() {
+        return status;
     }
 
     /**
-     * @param status_id the status_id to set
+     * @param status the status to set
      */
-    public void setStatus_id(int status_id) {
-        this.status_id = status_id;
+    public void setstatus(int status) {
+        this.status = status;
     }
 
     /**
-     * @return the type_id
+     * @return the type
      */
-    public int getType_id() {
-        return type_id;
+    public int gettype() {
+        return type;
     }
 
     /**
-     * @param type_id the type_id to set
+     * @param type the type to set
      */
-    public void setType_id(int type_id) {
-        this.type_id = type_id;
+    public void settype(int type) {
+        this.type = type;
     }
 
     public Date getDate_submitted() {
@@ -157,14 +173,14 @@ public class Reimbursement {
         Reimbursement reimbursement = (Reimbursement) o;
         return id == reimbursement.id && Objects.equals(amount, reimbursement.amount)
                 && Objects.equals(description, reimbursement.description) && requestee_id == reimbursement.requestee_id
-                && Objects.equals(resolver_id, reimbursement.resolver_id) && status_id == reimbursement.status_id
-                && type_id == reimbursement.type_id && Objects.equals(date_submitted, reimbursement.date_submitted)
+                && Objects.equals(resolver_id, reimbursement.resolver_id) && status == reimbursement.status
+                && type == reimbursement.type && Objects.equals(date_submitted, reimbursement.date_submitted)
                 && Objects.equals(date_resolved, reimbursement.date_resolved);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, amount, description, requestee_id, resolver_id, status_id, type_id, date_submitted,
+        return Objects.hash(id, amount, description, requestee_id, resolver_id, status, type, date_submitted,
                 date_resolved);
     }
 
@@ -172,7 +188,7 @@ public class Reimbursement {
     public String toString() {
         return "{" + " id='" + getId() + "'" + ", amount='" + getAmount() + "'" + ", description='" + getDescription()
                 + "'" + ", requestee_id='" + getRequestee_id() + "'" + ", resolver_id='" + getResolver_id() + "'"
-                + ", status_id='" + getStatus_id() + "'" + ", type_id='" + getType_id() + "'" + ", date_submitted='"
+                + ", status='" + getstatus() + "'" + ", type='" + gettype() + "'" + ", date_submitted='"
                 + getDate_submitted() + "'" + ", date_resolved='" + getDate_resolved() + "'" + "}";
     }
 

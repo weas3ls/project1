@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { User } from '../models/User';
+import { LoginService } from 'src/app/services/login/login.service';
 
 @Component({
     selector: 'app-header',
@@ -7,9 +9,19 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HeaderComponent implements OnInit {
 
-    constructor() { }
+    currentlyLoggedIn: boolean;
+    loggedInUser: User;
+    userFirstName: string;
 
-    ngOnInit() {
+    constructor(private loginService: LoginService) { }
+
+    async ngOnInit() {
+        this.loggedInUser = await this.loginService.loggedInUser;
+        if (this.loggedInUser) {
+            this.loggedInUser = this.loginService.loggedInUser;
+            this.userFirstName = this.loggedInUser.firstName;
+            this.currentlyLoggedIn = this.loggedInUser.currentlyLoggedIn;
+        }
     }
 
 }

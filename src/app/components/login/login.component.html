@@ -1,35 +1,21 @@
-<links>
-    <form [formGroup]="validatingForm" class="form-inline waves-light waves-light ml-lg-auto mr-xl-5" *ngIf="!currentlyLoggedIn; else loggedIn">
-        <div class=form-row>
-            <div class="col-12 col-md-6">
-                <div class="md-form mt-4 mb-3 mx-3">
-                    <input type="email" id="email" class="form-control mx-0 mb-0" mdbInput [formControl]="email" placeholder="Email">
-                    <label for="email">Your email</label>
-                </div>
-            </div>
-            <div class="col-12 col-md-6">
-                <div class="md-form mt-4 mb-3 mx-3">
-                    <input type="password" id="password" class="form-control mx-0 mb-0" mdbInput [formControl]="password" placeholder="Password">
-                    <label for="password">Your password</label>
-                </div>
+<form [formGroup]="validatingForm" class="waves-light waves-light ml-lg-auto mr-xl-5">
+    <div class=form-row>
+        <div class="col-12 col-md-8 offset-md-2">
+            <div class="md-form mt-4 mb-3 mx-3">
+                <input type="email" id="email" class="form-control mx-0 mb-0" mdbInput [formControl]="email" placeholder="Email" autofocus>
+                <label for="email">Your email</label>
             </div>
         </div>
-        <div class="md-form mt-4 mb-3 ml-xl-3">
-            <button mdbBtn color="success" rounded="true" class="m-0" (click)="submit()" mdbWavesEffect>Login</button>
+        <div class="col-12 col-md-8 offset-md-2">
+            <div class="md-form mt-4 mb-3 mx-3">
+                <input type="password" id="password" class="form-control mx-0 mb-0" mdbInput [formControl]="password" placeholder="Password">
+                <label for="password">Your password</label>
+            </div>
         </div>
-    </form>
-    <ng-template #loggedIn>
-        <ul class="navbar-nav ml-lg-auto nav-flex-icons mr-xl-5">
-            <li class="nav-item dropdown" dropdown>
-                <a dropdownToggle mdbWavesEffect type="button" class="nav-link dropdown-toggle waves-light" mdbWavesEffect>
-                    <mdb-icon fas icon="user"></mdb-icon> {{ userFirstName }}<span class="caret"></span>
-                </a>
-                <div *dropdownMenu class="dropdown-menu dropdown-menu-right dropdown dropdown-primary" role="menu">
-                    <a class="dropdown-item waves-light" mdbWavesEffect (click)="logout()">
-                        <mdb-icon fas icon="sign-out-alt"></mdb-icon> Logout
-                    </a>
-                </div>
-            </li>
-        </ul>
-    </ng-template>
-</links>
+        <div class="col-12 col-md-8 offset-md-2 text-right">
+            <div class="md-form mt-4 mb-3 ml-xl-3">
+                <button mdbBtn color="success" rounded="true" class="m-0" (click)="submit()" mdbWavesEffect>Login</button>
+            </div>
+        </div>
+    </div>
+</form>

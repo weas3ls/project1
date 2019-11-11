@@ -1,4 +1,4 @@
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { BehaviorSubject } from 'rxjs';
@@ -20,15 +20,17 @@ export class LoginComponent implements OnInit {
     inputPassword = '';
     validatingForm: FormGroup;
     loggedInUser: User;
-    userFirstName;
-    currentlyLoggedIn = false;
+    userFirstName: string;
+    currentlyLoggedIn: boolean = false;
     user: User;
+    returnUrl: string = '/';
 
     private loggedIn: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
 
     constructor(
         private loginService: LoginService,
         private router: Router,
+        private route: ActivatedRoute,
         private toastrService: ToastService
     ) { }
 
@@ -56,15 +58,16 @@ export class LoginComponent implements OnInit {
         if (this.user) {
             this.currentlyLoggedIn = this.user.currentlyLoggedIn;
             this.userFirstName = this.user.firstName;
+            this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/profile';
         } else {
             const options = { opacity: 1, progressBar: true, timeOut: 3000, closeButton: true, toastClass: 'pink' };
             this.toastrService.error('Login Failed!', 'Sorry!', options);
         }
+        this.router.navigateByUrl(this.returnUrl);
     }
 
     logout() {
-        // this.loggedIn.next(false);
         this.user = null;
-        this.router.navigate(['/']);
+        this.router.navigateByUrl(this.returnUrl);
     }
 }

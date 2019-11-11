@@ -1,11 +1,11 @@
 export interface Reimbursement {
     id: number;
     amount: number;
-    description: String;
+    description: string;
     requestee_id: number;
     resolver_id: number;
-    status_id: number;
-    type_id: number;
+    status: string;
+    type: string;
     date_submitted: Date;
     date_resolved: Date;
 }
